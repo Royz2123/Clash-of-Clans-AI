@@ -1,0 +1,542 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML XMLNS:MNU XMLNS:fb="http://www.facebook.com/2008/fbml" XMLNS:v="urn:schemas-microsoft-com:vml">
+<HEAD>
+		  <LINK   id='base-06-css' href="/styles/3014-base-06-v36.css" rel="stylesheet" type="text/css">
+	  <SCRIPT id='base-06-jss' src="/styles/3014-base-06-v36.js"></SCRIPT>
+	  <LINK   id='base-07-css' href="/styles/3014-base-07-v48.css" rel="stylesheet" type="text/css">
+	  <SCRIPT id='base-07-jss' src="/styles/3014-base-07-v48.js"></SCRIPT>
+	  <LINK   id='base-13-css' async-href="/styles/3014-base-13-v25.css" rel="stylesheet" type="text/css">
+	  <SCRIPT id='base-13-jss' async-src="/styles/3014-base-13-v25.js"></SCRIPT>
+
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=windows-1252">
+	
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+	<META name="description" content="Build your own base and see how it fairs with damage heatmaps and attack simulator. Browse from thousands of the highest rated and most effective bases. Easy to use, drag and drop builder" />
+	<META name="keywords" content="Clash of Clans, Base Builder, Layout Builder, Base Editor, Layout Editor, Map Builder, Map Editor, Town, Village" />
+
+	
+	<TITLE>Clash of Clans Builder - with Attack Simulator and Damage Heatmaps</TITLE>
+	
+		<SCRIPT>
+		
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-616899-29', 'auto');
+			ga('require', 'displayfeatures');
+			
+			ga('send', 'pageview');
+		
+					
+		</SCRIPT>
+		
+		
+</HEAD>
+<BODY class='builder'>
+	<style>
+		@import url(//fonts.googleapis.com/css?family=Alegreya+Sans+SC:400,800|Open+Sans:400,700);
+	</style>
+	
+	<div id="header"  class="center">
+		<div class="top-nav">
+			<div class="clashlogo">
+				<a href="/">
+					<img alt="Clash of Clans" class="logo" src="//www.clashofclans-tools.com/3014/CDN/clash-logo-5.png">
+				</a>    
+			</div>
+			
+			<a href="/">
+				<div class="top-mnu">
+					<div class="top-label"><span class="fa fa-check-square-o">Clash of Clans</span></div>
+					<div class="expanded">Tools &amp; More</div>
+				</div>
+			</a>
+			
+			
+			<a href="/Layouts/Top">
+				<div class="top-mnu">
+					<div class="top-label"><span class="fa fa-check-square-o">Top Layouts</span></div>
+					<div class="expanded">Browse Bases</div>
+				</div>
+			</a>
+			<a href="/Layout-Builder">
+				<div class="top-mnu last">
+					<div class="top-label"><span class="fa fa-check-square-o">Base Builder</span></div>
+					<div class="expanded">Create &amp; Modify</div>
+				</div>
+			</a>
+			
+			
+			<a onclick="document.body.setAttribute('menu',(document.body.getAttribute('menu')=='1'?0:1))">
+				<div class="top-mobile">
+					<i class="fa fa-bars"></i>
+					<div class="menu-label">MENU</div>
+				</div>
+			</a>
+			<div class="top-active"></div>
+		</div>
+		<div id="menu-container"> 
+			<div id="mobile-menu">
+				<div class="mobile-header"></div>
+				
+				<div class="half"><a href="/Layouts/Top"><span class="fa fa-angle-double-right ">Top Layouts</span></a><a href="/Layouts"><span class="fa fa-angle-double-right ">Latest Layouts</span></a></div>
+				<div class="half"><a href="/Layout-Builder"><span class="fa fa-angle-double-right ">Base Builder</span></a><a href="/Forum"><span class="fa fa-angle-double-right ">Forum</span></a></div>
+				<div class="half"><a href="/Guides"><span class="fa fa-angle-double-right ">Guides</span></a><a href="/Tips/Top"><span class="fa fa-angle-double-right ">Top Tips</span></a></div>	
+				<a href="/Clans"><span class="fa fa-angle-double-right ">Clans</span></a>
+				<div class="half" id='mobile-menu-account'>
+					<a id='mobile-menu-profile' href="/User"><span class="fa fa-angle-double-right">My Profile</span></a>
+					<a href="/Account-Home"><span class="fa fa-angle-double-right">My Account</span></a>
+				</div>
+				<div class="half">
+					<a id="mobile-menu-logout" onclick="document.body.setAttribute('menu',0);setWait(1); ulLogout(function(isL){document.location.reload()})"><span class="fa fa-angle-double-right ">Log Out</span></a>
+					<a id="mobile-menu-login" onClick="signupShow(2)" onTouchStart="signupShow(2)" onTouchStart="signupShow(1)"><span class="fa fa-angle-double-right ">Log In / Signup</span></a>			
+					<a href="/Contact"><span class="fa fa-angle-double-right ">Contact/Security</span></a>
+				</div>
+				<div class="mobile-footer">
+					<span onclick="document.body.setAttribute('menu',0)" class="fa fa-caret-square-o-up"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+				
+				
+	
+	<div id=main>
+		<div id=sfloat><div class='container'><div class='social-big'><span class="social-share"><div class="fb" title="Facebook"></div><div class="tw" title="Twitter"></div><div class="gp" title="Google Plus"></div></span></div></div></div>
+		<div id=content><div id='fb-root'></div>
+		
+		
+			<div id="ul-top-1">
+				<div class="sup-header">
+					<div onClick="signupShow(1)" onTouchStart="signupShow(1)" class="Signup">Sign Up</div>
+					<div onClick="signupShow(2)" onTouchStart="signupShow(2)" class="Login">Login</div>
+				</div>
+				<div class="sup-form">
+					<div id='ul-err-msg-1' class="sup-txt"></div>
+					<div class='ul-form'>
+						<div class="sup-col1">
+							<input class="focus" id="ul-inp-em-1" placeholder="Email" size="30" type="email">
+							<input class="focus" id="ul-inp-re-1" placeholder="Retype Email" size="30" type="email">
+							<input class="focus" id="ul-inp-un-1" placeholder="Username" size="30" type="text">
+							<input autocomplete="off" class="focus" id="ul-inp-pw-1" onkeyup="if(event.keyCode==13){gmLogin()}" placeholder="Password" size="30" type="password">
+						</div>
+						<div class="sup-cta">
+							<a id="ul-btn-1" onclick="gmLogin()" class="cta yes button signup">Get Started</a>
+						</div>
+						<div class='lines'><span>OR</span></div>
+					</div>
+					<div class='ul-connect'>
+						<div class="fbconnect" onclick="doFBLogin()"><i class="fa fa-facebook"></i></div>
+					</div>
+					<div class="sup-close">
+						<span onclick="signupShow(0)" class="fa fa-caret-square-o-up"></span>
+					</div>
+				</div>
+			</div>
+			<div><!-- DO NOT REMOVE ad-mn or change height:300px -->
+
+<STYLE>#content {padding:0px;} #main{  background-color: #1C1C1C;}</STYLE>
+
+<div id='ad-mn' class='adContent' style='width:100%;text-align:left;'>
+  <div>
+  
+      <div class='bullets'>
+        <h1>Take your game to the next level!</h1>
+        <ol class='rectangle-list'>
+            <li><div>Build and save your own collection of bases</div></li>
+            <li><div>Use Heatmaps on your base to see damage zones</div></li>
+            <li><div>Use the Wallbreaker attack simulator to see how it fairs</div></li>
+            <li><div>Browse the <a href='/Layouts/Top'>top bases</a> and modify to your liking</div></li>
+            
+        </ol>
+        
+    </div>
+  
+   <div class='ad-editor' style='margin:40px 20px'>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- Clash Editor 300 Right -->
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:300px;height:250px"
+             data-ad-client="ca-pub-3211621542617439"
+             data-ad-slot="7728484906"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    
+    </div>
+    
+
+    
+     
+ </div>
+    <div style='clear:both; height:0;'></div>
+</div>
+
+<STYLE>#content {padding:0px;}</STYLE>
+<div id='editor'>
+    <div id='grid-box' class='grid-box'>
+        <div id='grid-canvas' class='grid-box-i'>
+            <div id='grid'><div class='grid-centre'></div><div id='dropzones'></div><div id='walls'></div></div>
+            <canvas id='gpos' width=880 height=880 style='display:none;' onmousedown='gMDOWN(event)' onmousemove='gMMOVE(event)' ontouchstart='gMDOWN(event,true)' ontouchmove='gMMOVE(event,true)'></canvas>
+        </div>
+    </div>
+
+    <div id='tools-box' class='tools-box'>
+        <div id='toolbar' class='toolbar'>
+            <span class='top-item'> 
+                <a title='Show Help' id='help-btn' class='top-item-a' href="javascript:void(0)" onClick="var s=addBodyClass('coc-help');gmLogEvent('Help Button');" onTouchStart="eventPD(event);addBodyClass('coc-help');gmLogEvent('Help Button');"><div></div></a>
+            </span>
+            <span id='stats-btn-p' class='top-item'> 
+                <a title='View Layout Statistics' id='stats-btn' class='top-item-a' href="javascript:void(0)" onClick="calcStats();ccWinS('stats-win');gmLogEvent('Stats Button');" onTouchStart="eventPD(event);calcStats();ccWinS('stats-win');gmLogEvent('Stats Button');" ><div></div></a>
+            </span>
+            <span class='top-item'> 
+                <a title='Show Heatmap Overlays' id='heatmap-btn' class='top-item-a' href="javascript:void(0)"><font>Heatmaps</font><div></div></a> 
+                <span class='top-item-sub'> 
+                    <div class='top-item-arrow'></div> 
+                    <a id='hl-none' class='top-item-sub-a menu-sel' href="javascript:void(0)" onMouseDown="setHeatmap(event,'none')" onTouchStart="setHeatmap(event,'none')">No Heatmap</a> 
+                    <a id='hl-all' class='top-item-sub-a' href="javascript:void(0)" onMouseDown="setHeatmap(event,'all')" onTouchStart="setHeatmap(event,'all')">Overall Damage</a> 
+                    <a id='hl-air' class='top-item-sub-a' href="javascript:void(0)" onMouseDown="setHeatmap(event,'air')" onTouchStart="setHeatmap(event,'air')">Air Damage</a> 
+                    <a id='hl-single' class='top-item-sub-a' href="javascript:void(0)" onMouseDown="setHeatmap(event,'single')" onTouchStart="setHeatmap(event,'single')">Single Damage</a> 
+                    <a id='hl-splash' class='top-item-sub-a' href="javascript:void(0)" onMouseDown="setHeatmap(event,'splash')" onTouchStart="setHeatmap(event,'splash');">Splash Damage</a> 
+                    <a id='hl-dropzone' class='top-item-sub-a' href="javascript:void(0)" onMouseDown="setHeatmap(event,'dropzone')" onTouchStart="setHeatmap(event,'dropzone')">Drop Zone</a> 
+                </span> 
+            </span>
+            <span class='top-item'> 
+                <a title='Rotate Layout' id='rotate-btn' class='top-item-a' href="javascript:void(0)" onClick="gmRotate()" onTouchStart="gmRotateTouch()"><div></div></a>
+            </span>
+            <span class='top-item'> 
+                <a title='Zoom In' id='zoomin-btn' class='top-item-a' onMouseDown="gmZoomS(event,1)" onMouseUp="gmZoomE(event,1)" onTouchStart="gmZoomS(event,1)" onTouchEnd="gmZoomE(event,1)"><div></div></a>
+            </span>
+            <span class='top-item'> 
+                <a title='Zoom Out' id='zoomout-btn' class='top-item-a' onMouseDown="gmZoomS(event,-1)" onMouseUp="gmZoomE(event,-1)" onTouchStart="gmZoomS(event,-1)" onTouchEnd="gmZoomE(event,-1)"><div></div></a>
+            </span>
+            <span class='top-item'> 
+                <a title='Full Screen' id='fullscreen-btn' onClick="gmFullscreen()" onTouchStart="eventPD(event);gmFullscreen()" class='top-item-a' ><div></div></a>
+            </span>
+
+            <span class='top-item' style='float:right;'> 
+                <a title='Save Layout' id='save-layout-btn' class='top-item-a' href="javascript:void(0)" onClick="gmSaveBtn()" onTouchStart="eventPD(event);gmSaveBtn()" style='border-right:0px; border-left:1px solid #4B4A49'><font>Save</font><div></div></a>
+            </span>
+            <span class='top-item' style='float:right;'> 
+                <a title='Get Links to your Layout' id='link-btn' class='top-item-a' href="javascript:void(0)" onClick="gmLinkBtn()" onTouchStart="eventPD(event);gmLinkBtn()" style='border-right:0px; border-left:1px solid #4B4A49'><font>Links</font><div></div></a>
+            </span>
+            <span class='top-item' id='new-btn-p'  style='float:right;'> 
+                <a title='Create a New Layout' id='new-btn' class='top-item-a' href="javascript:void(0)" style='border-right:0px; border-left:1px solid #4B4A49'><font>New</font><div></div></a> 
+                <span class='top-item-sub'> 
+                    <div class='top-item-arrow'></div> 
+                    <a class='top-item-sub-a' href="javascript:void(0)" onClick="if(confirm('Are you sure?')){gmLogEvent('New Button'); document.location='/Layout-Builder'}" onTouchStart="eventPD(event);if(confirm('Are you sure?')){gmLogEvent('New Button'); document.location='/Layout-Builder'}">Empty Layout</a> 
+                    <a class='top-item-sub-a' href="javascript:void(0)" onClick="if(confirm('Are you sure?')){gmLogEvent('Duplicate Button'); document.location='/Layout-Builder#'+saveLayout(true); layoutID=''}" onTouchStart="eventPD(event);if(confirm('Are you sure?')){gmLogEvent('Duplicate Button'); document.location='/Layout-Builder#'+saveLayout(true); layoutID=''}" >Duplicate of this Base</a>
+                </span>
+            </span>
+        </div>
+        <script>setEventsTB()</script>
+            
+           
+
+        <div id='buildings' class='buildings-p2'>
+            <a id='drag-toolkit' href='javascript:void(0)' class='buildings-sel b1'>Toolkit</a>
+            <div class='buildings-panel p1'><div class='buildings-panel-i'>
+                <a id='coc-wall' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <div class='coc-wall-lvl'>
+                    <span class='wall-u' onClick='setWallLevel(1)'></span>
+                    <span id='wall-lvl' class='wall-n'>7</span>
+                    <span class='wall-d' onClick='setWallLevel(-1)'></span>
+                </div>
+                <div class='bld-details'>
+                    <div class='bld-row'>
+                        <span class='bld-v'>
+                            <select id='layout-thl' onChange='setTHL(this.value)'>
+                                <option value='1'>Townhall 1</option>
+                                <option value='2'>Townhall 2</option>
+                                <option value='3'>Townhall 3</option>
+                                <option value='4'>Townhall 4</option>
+                                <option value='5'>Townhall 5</option>
+                                <option value='6'>Townhall 6</option>
+                                <option value='7'>Townhall 7</option>
+                                <option value='8'>Townhall 8</option>
+                                <option value='9' SELECTED>Townhall 9</option>
+                                <option value='10'>Townhall 10</option>
+                                <option value='11'>Townhall 11</option>
+                            </select>
+                        <span>
+                    </div>
+                    <div class='bld-row'>
+                        <span class='bld-v'>
+                            <select id='layout-level' onChange="setLevels(this)" onChange="setLevels(this)">
+                                <option value=''>Set Levels --></option>
+                                <option value='none'>Hide Levels</option>
+                                <option value='all'>All Buildings</option>
+                                <option value='def'>Defense Towers</option>
+                                <option value='oth'>Other Buildings</option>
+                                <option value='trap'>Traps</option>
+                                <option value='hero'>Heroes</option>
+                                <option value='troops'>Troops</option>
+                                <option value='min'>Set all to TH Min</option>
+                                <option value='max'>Set all to TH Max</option>
+                            </select>
+                        <span>
+                    </div>
+                </div>
+            </div></div>
+            <a href="javascript:void(0)" onClick="gmChangeP(this);" class='buildings-sel b2'>Defenses</a>
+            <div class='buildings-panel p2'><div class='buildings-panel-i'>
+                <a id='coc-cannon' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-mortar' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-archer' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-wizard' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-air' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-xbow' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-eagle' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-tesla' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-airsweeper' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-inferno' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+            </div></div>
+            <a href="javascript:void(0)" onClick="gmChangeP(this);" class='buildings-sel b3'>Resources</a>
+            <div class='buildings-panel p3'><div class='buildings-panel-i'>
+                <a id='coc-goldstorage' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-gold' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-elixerstorage' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-elixer' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-delixerstorage' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-delixer' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+            </div></div>
+            <a href='javascript:void(0)' onClick="gmChangeP(this);" class='buildings-sel b4'>Army</a>
+            <div class='buildings-panel p4'><div class='buildings-panel-i'>
+                <a id='coc-barracks' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-dbarracks' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-spells' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-darkspells' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-castle' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-army' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+            </div></div>
+            <a href='javascript:void(0)' onClick="gmChangeP(this);" class='buildings-sel b5'>Other</a>
+            <div class='buildings-panel p5'><div class='buildings-panel-i'>
+                <a id='coc-herobarbarian' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-heroarcher' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-herowarden' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-research' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-builder' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-townhall' class='coc-bbtn' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+            </div></div>
+            <a href='javascript:void(0)' onClick="gmChangeP(this);" class='buildings-sel b6'>Traps</a>
+            <div class='buildings-panel p6'><div class='buildings-panel-i'>
+                <a id='coc-bigbomb' class='coc-bbtn coc-grid-traps' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-bomb' class='coc-bbtn coc-grid-traps' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-spring' class='coc-bbtn coc-grid-traps' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-airbomb' class='coc-bbtn coc-grid-traps' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-airmine' class='coc-bbtn coc-grid-traps' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+                <a id='coc-skeleton' class='coc-bbtn coc-grid-traps' onMouseDown='bbDOWN(event)' onMouseUp='bbUP(event)' ontouchstart='bbDOWN(event,true)'><span class=bx></span></a>
+            </div></div>
+            
+
+        </div>
+       
+        <div id='help' class='screen-overlay' onClick="toggleScreen(event,this.id)">
+            <div class='help h1'>
+                <div class='help-arrow-right'></div>
+                Click the walls tool to draw walls.  Once the wall tool is selected (highlighted orange) you can click and drag on the map to draw your walls.  Start your 'click and drag' on an existing wall to erase walls.  On an ipad hold your finger down and drag to draw and erase walls.
+            </div>
+            <div class='help h2'>
+                <div class='help-arrow-right'></div>
+                Click an available tower once to select it and then hover over the map and click it again to drop it in an empty space on the map.  On an ipad hold your finger down and drag the tower onto the map.
+            </div>
+            <div class='help h3'>
+                <div class='help-arrow-top'></div>
+                Click a tower already on the map once to select it and then move the mouse and click again to drop it in an empty space on the map.  To delete the tower, move the mouse outside the map and click again to drop the tower and it will be removed from the map. On an ipad hold your finger down and drag the tower.
+            </div>
+            <div class='help h4'>
+                <div class='help-arrow-top'></div>
+                Click to save your base - it will put a shortened google link in the white box that you can copy and paste anywhere.  You can also just copy or bookmark the actual URL once you have clicked save, however it is quite long.
+            </div>
+            <div class='help h5'>
+                <div class='help-arrow-top'></div>
+                Click to show the attack radius of defense towers.  Splash damage is red and single damage is green - xbow and tesla have an extra orange radius to show their different modes.
+            </div>
+        </div>
+    </div>
+
+    <div class='windows-box'>
+        <div ccname='stats-win' w=870 modal=1 ttl='Layout Stats' m=true class='control-win' style='display:none'>
+            <div class='stat-left'>
+                <div class='stat-heading stat-hf'>Earnings/Day</div>
+                <div class='stat-row'><span class='stat-title'>Gold:</span>   <span id='gold-day' class='stat-value'>0</span></div>
+                <div class='stat-row'><span class='stat-title'>Elixer:</span>   <span id='elixer-day' class='stat-value'>0</span></div>
+                <div class='stat-row'><span class='stat-title'>Dark Elixer:</span>  <span id='delixer-day' class='stat-value'>0</span></div>
+                <div class='stat-heading'>To Max TH</div>
+                <div class='stat-row'><span class='stat-title'>Total Time:</span>  <span id='time-to-max' class='stat-value'>0</span></div>
+                <div class='stat-row'><br></div>
+                <div class='stat-row'><span class='stat-title'>Building Time:</span>  <span id='time-to-max-b' class='stat-value'>0</span></div>
+                <div class='stat-row'><span class='stat-title'>Gold:</span>   <span id='gold-to-max' class='stat-value'>0</span></div>
+                <div class='stat-row'><span class='stat-title'>Elixer:</span>   <span id='elixer-to-max' class='stat-value'>0</span></div>
+                <div class='stat-row'><br></div>
+                <div class='stat-row'><span class='stat-title'>Hero Time:</span>  <span id='time-to-max-h' class='stat-value'>0</span></div>
+                <div class='stat-row'><span class='stat-title'>Dark E:</span>   <span id='delixer-to-max' class='stat-value'>0</span></div>
+                <div class='stat-heading'>Current Spent</div>
+                <div class='stat-row'><span class='stat-title'>Total Time:</span>  <span id='time-spent' class='stat-value'>0</span></div>
+                <div class='stat-row'><br></div>
+                <div class='stat-row'><span class='stat-title'>Building Time:</span>  <span id='time-spent-b' class='stat-value'>0</span></div>
+                <div class='stat-row'><span class='stat-title'>Gold:</span>   <span id='gold-spent' class='stat-value'>0</span></div>
+                <div class='stat-row'><span class='stat-title'>Elixer:</span>   <span id='elixer-spent' class='stat-value'>0</span></div>
+                <div class='stat-row'><br></div>
+                <div class='stat-row'><span class='stat-title'>Hero Time:</span>  <span id='time-spent-h' class='stat-value'>0</span></div>
+                <div class='stat-row'><span class='stat-title'>Dark E:</span>   <span id='delixer-spent' class='stat-value'>0</span></div>
+            </div>
+            <div class='stat-right'>
+                <div class='stat-heading stat-hf'>What are you Worth?</div>
+                <div class='stat-row'>
+                    <span class='stat-title'>Simulation:</span>
+                    <select id='stat-sim'>
+                    <option value=1>From Start to Current Levels</option>
+                    <option value=2>From Start to Maximum TH10</option>
+                    <option value=3>From Current to Maximum TH10</option>
+                    </select>
+                    <input type=button value='Run Simulation' onClick='calc_Gems()'>
+                </div>
+                <div class='stat-row stat-check'><span class='stat-title'> </span> <span><input id='inc-hero' CHECKED type=checkbox value='1'>  Include Heroes</span> <input id='inc-wall' type=checkbox value='1' style='margin-left:20px;'>  <s>Include Walls</s></span></div>
+                <div class='stat-row stat-check'><span class='stat-title'>Gem Cost:</span> <span id='gem-cost'></span></div>
+                <div class='stat-row stat-check'><span class='stat-title'>$ USD Cost:</span> <span id='usd-cost'></span></div>
+                <div class='stat-row'><br></div>
+                <div id='stat-report' class='stat-report'></div>
+            </div>
+        </div>
+          
+        <div id='troops' ccname='troops-win' w=640 modal=1 ttl='Troop Levels' m=true class='control-win' style='display:none'>
+            <div class='troop-msg'>Click the buttons to set your troop & spell levels<br>(click past the maximum level to reset to Level 1)</div>
+            <div class='troop-btns'>
+                <a id='troop-barbarian' class='troop-btn' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+                <a id='troop-archer' class='troop-btn' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+                <a id='troop-goblin' class='troop-btn' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+                <a id='troop-giant' class='troop-btn' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+                <a id='troop-wallbreaker' class='troop-btn' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+                <a id='troop-balloon' class='troop-btn' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+                <a id='troop-wizard' class='troop-btn' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+                <a id='troop-healer' class='troop-btn' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+                <a id='troop-dragon' class='troop-btn' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+                <a id='troop-pekka' class='troop-btn' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+                <a id='troop-minion' class='troop-btn' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+                <a id='troop-hogrider' class='troop-btn' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+                <a id='troop-valkyrie' class='troop-btn' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+                <a id='troop-golem' class='troop-btn' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+                <a id='troop-lavahound' class='troop-btn' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+                <a id='troop-lightning' class='troop-btn' style='clear:left;' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+                <a id='troop-healing' class='troop-btn' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+                <a id='troop-rage' class='troop-btn' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+                <a id='troop-jump' class='troop-btn' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+                <a id='troop-freeze' class='troop-btn' href='javascript:void(0);' onClick="setTroopLevel(event);"><div class='troop-star'></div><div class='troop-cost'></div></a>
+            </div>
+        </div>
+          
+        <div id='save' ccname='save-win' w=500 modal=1 ttl='Save Layout' m=true class='control-win save-start' style='display:none;'>
+            <div id='save-err'></div>
+            <div id='save-form'>
+                <div class='save-row save-c1'><span>Layout Name:</span><input id="layout-name" type="text" value=""></div>
+                <div class='save-row save-c2'><span>Type:</span><select id='layout-type'><option value='W'>War Base</option><option value='H'>Hybrid</option><option value='F'>Farming</option><option value='T'>Trophy</option></select></div>
+                <div class='save-row'><div class='save-row-n'>Description (optional):</div><textarea id='layout-desc'></textarea></div>
+                <div class='save-row'><div class='save-row-n'>Tags:</div>
+                    <input name="lt-tag-v" type="hidden" value="">
+                    <div id="lt-tags" class="lt-tags" contenteditable="true" defaultv="Please enter one or more tags (separated by commas)" onkeydown="tagKey(event)" onkeyup="tagSearch(this)"></div>
+                    <div id="lt-taglist" tabindex="-1" style="display:none;"><div class="lt-taglist-i" style="height:84px;"></div></div>
+                </div>
+                <div class='save-row'><div class='save-row-n'>Suggested Tags (click to add):</div><div class='suggested-tags'>
+                    <span onClick="tagAdd(21,'anti hog',1)">Anti Hog</span>
+                    <span onClick="tagAdd(22,'anti gowipe',1)">Anti GoWipe</span>
+                    <span onClick="tagAdd(30,'anti gowiwi',1)">Anti GoWiWi</span>
+                    <span onClick="tagAdd(31,'anti loonian',1)">Anti Loonian</span>
+                    <span onClick="tagAdd(32,'anti lavaloonian',1)">Anti LavaLoonian</span>
+                    <span onClick="tagAdd(38,'anti dragon',1)">Anti Dragon</span>
+                    <span onClick="tagAdd(42,'its a trap',1)">It's a Trap</span>
+                    <span onClick="tagAdd(43,'its so pretty',1)">It's so Pretty</span>
+                    <span onClick="tagAdd(44,'protect the gold',1)">Protect the Gold</span>
+                    <span onClick="tagAdd(45,'protect the elixer',1)">Protect the Elixer</span>
+                    <span onClick="tagAdd(46,'protect the de',1)">Protect the DE</span>
+                </div></div>
+                <div class='save-row'><br></div>
+                <div class='save-row'><div class='control-btn' type=2 onClick='saveLayout()'>Save Layout</div></div>
+            </div>
+            <div id='save-wait'>Saving<br>Please Wait...</div>
+        </div>
+          
+        <div id='save-login' ccname='login-win' w=400 modal=1 ttl='Login or Signup to Save' m=true class='control-win' style='display:none'>
+            <div id='save-login'>
+                <div class='save-login-msg'>You must have a free account to save your Layout.  Use the signup form to create your free account, or click Login if you already have an account.</div>
+                <a href='javascript:void(0);' onClick='ulShow(5)'>Signup</a> or <a href='javascript:void(0);' onClick='ulShow(3)'>Login</a>
+            </div>
+        </div>
+          
+        <div id='links' ccname='links-win' w=580 modal=1 ttl='Get Links to your Layout' m=true class='control-win not-saved' style='display:none;'>
+            <div class='info-box'>
+                <div id='link-msg' class='info-msg'><b>This layout has not been saved.</b>  You can use the link below to show people your layout, however it will not be able to be voted on or appear in the Top Layouts list.<br>
+                    <a href='javascript:void(0);' onClick="ccWinH('links-win');ccWinS('save-win');">Click here to save your layout</a> and it will be saved under your account.
+                </div>
+                <div class='info-row'><span>Layout Link:</span><input id="layout-link" type="text" value="http://www.clashofclans-tools.com/Layout-Builder"></div>
+                <div class='info-row'><span></span><input id="short-link" type="checkbox" onClick=gmShortLink()> <font class="short-link" onClick="var c=this.parentNode.childNodes[1];c.checked=!c.checked;gmShortLink()">Use Link Shortner (via goo.gl)</font></div>
+                <div class='info-row'><br></div>
+                <div class='info-header'>Images of your Layout</div>
+                <div id='layout-img'>
+                    <div class='info-pic'><img id='layout-pic' src='/images/blank.gif'></div>
+                    <div class='info-list'>
+                        <div id='layout-img-msg' class='info-msg'><a href='javascript:void(0);' onClick="ccWinH('links-win');ccWinS('save-win');">Save</a> your layout to get your image links</div>
+                        <div class='info-row'><span>Type:</span><select id='img-type' onClick='gmLinkImg()'><option value='Flat'>Flat (top down)</option><option value='Rotated'>Rotated (as in game)</option></select></div>
+                        <div class='info-row'><span>Size:</span><select id='img-size' onClick='gmLinkImg()'><option value='200'>200 x 200</option><option value='400'>400 x 400</option><option value='600'>600 x 600</option><option value='800'>800 x 800</option></select></div>
+                        <div class='info-row'><br></div>
+                        <div class='info-row'><span>Link:</span><input id="layout-link-img" type="text" value=""></div>
+                        <div class='info-btn'><div class='control-btn' type=2 onClick="ccWinH('links-win');">Close</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                
+        <div id='touch-rotate' ccname='touch-rotate-win' w=400 ttl='Editing Not Available' modal=1 class='control-win' style='display:none'>
+            <div style='padding:10px;'>
+                Unfortunately for mobile devices we are currently unable to provide actual editing of layouts while in rotated mode.  This feature is still available from standard computers and work is underway to enable it for mobile devices in the future.
+                <br><br><div class='control-btn' type=2 onClick="ccWinH('touch-rotate-win');">Close</div>
+            </div>
+        </div>
+
+</div>
+    
+</div>
+<SCRIPT>controlLoad(); gmInit(); loadLayout(""); controlLoad();</SCRIPT>
+<!--SCRIPT>
+    if(contentSize()!=0){
+        window.addEventListener('load', function() {setTimeout("window.scrollTo(0,1);gmWinHeight()",100)}, false);
+        window.addEventListener('resize', gmWinHeight, false);
+        window.addEventListener('scroll', gmWinScroll, false);
+    }
+</SCRIPT-->
+
+
+<div class='resp-container'>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Clash Editor Bottom -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-3211621542617439"
+         data-ad-slot="3241855308"
+         data-ad-format="auto"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div></div>
+			<div class='float-clear'></div>
+			
+	</div>
+	
+		<script>try{ulLoad({"id":0,"em":"","nc":0,"un":"","ut":"","fn":"","fb":"","gp":"","tz":0,"pic":"","preaccount":1,"cmonth":-7});}catch(e){}loadTextEdit();</script>
+		
+	
+
+	</div>
+	
+
+	
+	<div id='footer'><a href='/Contact'>Security & Privacy</a></div>
+</BODY>
+</HTML>
