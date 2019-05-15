@@ -13,16 +13,13 @@ def generate_random_base(quants, levels):
                 if not any([curr_obj.overlap(other) for other in buildings]):
                     break
             buildings.append(curr_obj)
-
     return buildings
+
 
 def generate_random_base_3():
     QUANTS = [0, 2, 1, 1, 50, 1]
     LEVELS = [0, 3, 2, 3, 3, 1]
     return generate_random_base(QUANTS, LEVELS)
-
-
-
 
 
 def main():
