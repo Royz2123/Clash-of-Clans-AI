@@ -14,6 +14,12 @@ class Building(object):
         self._elixir = elixir
         self._dark = dark
 
+        # create loc list
+        self._loc_list = []
+        for i in range(self._size):
+            for j in range(self._size):
+                self._loc_list.append((self._pos[0] + i, self._pos[1] + j))
+
     def get_size(self):
         return self._size
 
@@ -23,15 +29,11 @@ class Building(object):
     def get_name(self):
         return self._name
 
-    def get_list_loc(self):
-        locs = []
-        for i in range(self._size):
-            for j in range(self._size):
-                locs.append((self._pos[0] + i, self._pos[1] + j))
-        return locs
+    def get_loc_list(self):
+        return self._loc_list
 
     def overlap(self, other):
-        return len(set(self.get_list_loc()) & set(other.get_list_loc()))
+        return len(set(self.get_loc_list()) & set(other.get_loc_list()))
 
     def create_html(self):
         return (

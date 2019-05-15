@@ -36,12 +36,8 @@ class GameBoard(object):
 
         # update board with buildings
         for building in self._buildings:
-            x, y = building.get_pos()
-            for i in range(building.get_size()):
-                for j in range(building.get_size()):
-                    self._board[x + i][y + j] = BUILDINGS_MAP[building.__class__]
-
-        print(self._board)
+            for x, y in building.get_loc_list():
+                self._board[x][y] = BUILDINGS_MAP[building.__class__]
 
     def html_repr(self):
         html_repr = ""
