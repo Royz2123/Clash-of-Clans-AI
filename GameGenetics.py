@@ -1,8 +1,11 @@
 import GameBoard
-from random import random,choice
+from random import random, choice
+
+
 class GameGenetics:
-    def __init__(self,board=None):
-        self.game_board=GameBoard(board)
+    def __init__(self, board=None):
+        self.game_board = GameBoard(board)
+
     def fitness(self):
         outcome=self.game_board.run()
         percent=outcome[0]
