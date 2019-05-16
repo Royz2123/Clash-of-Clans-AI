@@ -32,6 +32,9 @@ class Building(object):
     def get_loc_list(self):
         return self._loc_list
 
+    def is_defensive(self):
+        return self._dps > 0
+
     def overlap(self, other):
         return len(set(self.get_loc_list()) & set(other.get_loc_list()))
 

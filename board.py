@@ -39,6 +39,9 @@ class GameBoard(object):
             for x, y in building.get_loc_list():
                 self._board[x][y] = BUILDINGS_MAP[building.__class__]
 
+    def get_defensive_buildings(self):
+        return [b for b in self._buildings if b.is_defensive()]
+
     def html_repr(self):
         html_repr = ""
         for building in self._buildings:
@@ -69,6 +72,9 @@ class GameBoard(object):
 
     def set_board(self,board):
         self._board=board
+
+    def get_buildings(self):
+        return self._buildings
 
     #TODO:
     # can be optimized by returning the changed walls from GameBoard.move_walls
