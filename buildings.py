@@ -102,7 +102,7 @@ class TownHall(Building):
             size=4
         )
 
-
+#  i just commited
 class Wall(Building):
     HPS = [0, 300, 500, 700, 900, 1400, 2e3, 2500, 3e3, 4e3, 5500, 7e3, 0, 0]
 
