@@ -1,6 +1,8 @@
 from buildings import *
+import numpy as np
 
-
+# dictionary for our buildings
+# Has to be from 1 to n
 BUILDINGS_MAP = {
     Cannon: 1,
     Archer: 2,
@@ -10,14 +12,15 @@ BUILDINGS_MAP = {
     Empty: 6
 }
 
+
 def create_obj_from_index(search_index):
-    for obj, index in BUILDINGS_MAP.items():  # for name, age in dictionary.iteritems():  (for Python 2.x)
+    for obj, index in BUILDINGS_MAP.items():
         if index == search_index:
             return obj
     return None
 
-
 class GameBoard(object):
+    BIGGEST_BUILDING_SIZE = len(BUILDINGS_MAP)
     BOARD_SIZE = 50
     HTML_FILE = "./visualize/index.html"
     EYECATCHER_START = "<!--EYECATCHERSTART-->"
@@ -26,16 +29,21 @@ class GameBoard(object):
     DEFAULT_BASE = [Cannon((1, 0))]
 
     def __init__(self, buildings=[Mortar((0, 0))]):
-        self._board = []
-        for i in range(GameBoard.BOARD_SIZE):
-            self._board.append([0] * GameBoard.BOARD_SIZE)
-
         self._buildings = buildings
+        self.add_emptys()
 
-        # update board with buildings
+
+    def add_emptys(self):
+        board=np.zeros((GameBoard.BOARD_SIZE,GameBoard.BOARD_SIZE))
         for building in self._buildings:
             for x, y in building.get_loc_list():
-                self._board[x][y] = BUILDINGS_MAP[building.__class__]
+                board[x][y] = BUILDINGS_MAP[building.__class__]
+
+        for size in range(1,GameBoard.BIGGEST_BUILDING_SIZE+1):
+            for i in range(GameBoard.BOARD_SIZE-size):
+                for j in range(GameBoard.BOARD_SIZE-size):
+                    if (board[i:i+size][j:j+size]==BUILDINGS_MAP.get(Wall)).all():
+                        self._buildings.append(Empty(size=size,pos=(i,j)))
 
     def get_defensive_buildings(self):
         return [b for b in self._buildings if b.is_defensive()]
@@ -65,37 +73,11 @@ class GameBoard(object):
             f.write(new_content)
         return
 
-    def set_buildings_positions(self,board):
-        self.buildings_positions=board
-
-    def set_board(self,board):
-        self._board=board
+    def set_buildings(self, board):
+        self._buildings = board
 
     def get_buildings(self):
         return self._buildings
-
-    #TODO:
-    # can be optimized by returning the changed walls from GameBoard.move_walls
-    def set_walls(self,walls):
-        # adding walls
-        for index in walls:
-            self._board[index[0]][index[1]]=GameBoard.WALLS
-        # removing not walls
-        for i in range(GameBoard.BOARD_SIZE):
-            for j in range(GameBoard.BOARD_SIZE):
-                if self._board[i][j]==GameBoard.WALLS and (i,j) not in walls:
-                    self._board[i][j]=GameBoard.EMPTY_CELL
-
-
-    # list of tuples that are the locations of the empty cells on the board
-    def get_empty_positions(self):
-        indices=[]
-        for i in range(GameBoard.BOARD_SIZE):
-            for j in range(GameBoard.BOARD_SIZE):
-                pass
-
-    def get_walls(self):
-        return [b for b in self._buildings if b.get_name() == "wall"]
 
     def get_building_from_pos(self, pos):
         buildings = [b for b in self._buildings if pos == b.get_pos()]
@@ -108,30 +90,8 @@ class GameBoard(object):
     def destroy_building(self, building):
         self._buildings.remove(building)
 
-
-    def get_walls_positions(self):
-        return 0
-
-    # list of tuples that are the top-left corner position
-    # of any block of 3x3 which is empty
-    def get_empty_buildings(self):
-        return 0
-
-    # list of tuples that are the locations of all the walls on the board
-    def get_walls_positions(self):
-        return 0
-
-    # list of tuples that are the top-left corner position
-    # of all the buildings on the _board
-    def get_buildings_positions(self):
-        return 0
-
-    def get_board(self):
-        return self._board
-
     def run(self, army):
         return 0
-
 
 
 if __name__ == "__main__":
