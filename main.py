@@ -1,7 +1,8 @@
 import board
 import buildings
 import random
-
+import army
+import simulator
 
 def generate_random_base(quants, levels):
     buildings = []
@@ -25,7 +26,10 @@ def generate_random_base_3():
 def main():
     gb = board.GameBoard(generate_random_base_3())
     gb.update_viz()
-
+    sim = simulator.Simulator(gb)
+    troop = army.Troop()
+    army_obj = [troop]
+    sim.run(army_obj)
 
 if __name__ == "__main__":
     main()

@@ -29,6 +29,15 @@ class Building(object):
     def get_pos(self):
         return self._pos
 
+    def get_hp(self):
+        return self._hp
+
+    def set_hp(self, hp):
+        self._hp = hp
+
+    def distance(self, other):
+        return abs(self._pos[0] - other.get_pos()[0]) + abs(self._pos[1] - other.get_pos()[1])
+
     def set_pos(self,pos):
         self._pos=pos
 
