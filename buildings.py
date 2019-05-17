@@ -23,8 +23,14 @@ class Building(object):
     def get_size(self):
         return self._size
 
+    def set_size(self,size):
+        self._size=size
+
     def get_pos(self):
         return self._pos
+
+    def set_pos(self,pos):
+        self._pos=pos
 
     def get_name(self):
         return self._name
@@ -102,7 +108,6 @@ class TownHall(Building):
             size=4
         )
 
-#  i just commited
 class Wall(Building):
     HPS = [0, 300, 500, 700, 900, 1400, 2e3, 2500, 3e3, 4e3, 5500, 7e3, 0, 0]
 
@@ -141,3 +146,7 @@ class Mortar(Building):
             radius_level=level
         )
 
+class Empty(Building):
+
+    def __init__(self,size_,pos):
+        super(Empty, self).__init__(size=size_)

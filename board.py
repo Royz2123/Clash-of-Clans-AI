@@ -1,5 +1,3 @@
-import re
-
 from buildings import *
 
 
@@ -9,7 +7,7 @@ BUILDINGS_MAP = {
     TownHall: 3,
     Wall: 4,
     Mortar: 5,
-
+    Empty: 6
 }
 
 def create_obj_from_index(search_index):
