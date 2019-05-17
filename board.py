@@ -5,7 +5,7 @@ import numpy as np
 # Has to be from 1 to n
 BUILDINGS_MAP = {
     Cannon: 1,
-    Archer: 2,
+    ArcherTower: 2,
     TownHall: 3,
     Wall: 4,
     Mortar: 5,
@@ -78,6 +78,13 @@ class GameBoard(object):
 
     def get_buildings(self):
         return self._buildings
+
+    def get_non_wall_buildings(self):
+        return [b for b in self._buildings if b.__class__ != Wall]
+
+
+    def get_walls(self):
+        return [b for b in self._buildings if b.__class__ == Wall]
 
     def get_building_from_pos(self, pos):
         buildings = [b for b in self._buildings if pos == b.get_pos()]

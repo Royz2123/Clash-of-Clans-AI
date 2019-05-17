@@ -1,0 +1,2 @@
+BOARD_SIZE = 20
+MARGIN = 10
