@@ -8,8 +8,8 @@ def generate_random_base(quants, levels):
     for i in range(1, len(quants)):
         for j in range(quants[i]):
             while True:
-                x, y = tuple(random.sample(range(0, 12), 2))
-                curr_obj = board.get_obj_from_index(i)(pos=(x, y), level=levels[i])
+                x, y = tuple(random.sample(range(0, 15), 2))
+                curr_obj = board.create_obj_from_index(i)(pos=(x, y), level=levels[i])
                 if not any([curr_obj.overlap(other) for other in buildings]):
                     break
             buildings.append(curr_obj)

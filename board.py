@@ -12,7 +12,7 @@ BUILDINGS_MAP = {
 
 }
 
-def get_obj_from_index(search_index):
+def create_obj_from_index(search_index):
     for obj, index in BUILDINGS_MAP.items():  # for name, age in dictionary.iteritems():  (for Python 2.x)
         if index == search_index:
             return obj
