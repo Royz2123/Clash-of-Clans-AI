@@ -3,7 +3,7 @@ from buildings import *
 
 BUILDINGS_MAP = {
     Cannon: 1,
-    Archer: 2,
+    ArcherTower: 2,
     TownHall: 3,
     Wall: 4,
     Mortar: 5,
@@ -86,7 +86,6 @@ class GameBoard(object):
                 if self._board[i][j]==GameBoard.WALLS and (i,j) not in walls:
                     self._board[i][j]=GameBoard.EMPTY_CELL
 
-
     # list of tuples that are the locations of the empty cells on the board
     def get_empty_positions(self):
         indices=[]
@@ -128,10 +127,6 @@ class GameBoard(object):
 
     def get_board(self):
         return self._board
-
-    def run(self, army):
-        return 0
-
 
 
 if __name__ == "__main__":

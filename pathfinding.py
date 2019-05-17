@@ -1,9 +1,10 @@
 from __future__ import print_function
-import matplotlib.pyplot as plt
 
 import board
 import main
+from constants import *
 
+import board_viz
 
 class AStarGraph(object):
     # Define a class board like grid with two barriers
@@ -32,7 +33,7 @@ class AStarGraph(object):
         for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1), (-1, 1), (1, -1)]:
             x2 = pos[0] + dx
             y2 = pos[1] + dy
-            if x2 < 0 or x2 > 15 or y2 < 0 or y2 > 15 or (x2, y2) in self.barriers:
+            if x2 < 0 or x2 > BOARD_SIZE or y2 < 0 or y2 > BOARD_SIZE or (x2, y2) in self.barriers:
                 continue
             n.append((x2, y2))
         return n
@@ -151,25 +152,6 @@ def Dijkstra(start, targets, graph):
     return [], 0
 
 
-def viz_path(result, graph, targets):
-    for (x, y) in result:
-        circle = plt.Circle((y, x), 0.2, color='r')
-        plt.gcf().gca().add_artist(circle)
-
-    for (x, y) in graph.barriers:
-        circle = plt.Circle((y, x), 0.2)
-        plt.gcf().gca().add_artist(circle)
-
-    for (x, y) in targets:
-        if not (x, y) in graph.barriers:
-            circle = plt.Circle((y, x), 0.2, color='g')
-            plt.gcf().gca().add_artist(circle)
-
-    plt.xlim(-1, 15)
-    plt.ylim(-1, 15)
-    plt.gca().invert_yaxis()
-    plt.show()
-
 
 if __name__ == "__main__":
     gb = board.GameBoard(main.generate_random_base_3())
@@ -178,4 +160,4 @@ if __name__ == "__main__":
     start = (0, 0)
     targets = [(1, 7), (7, 7), (7, 1)]
     result, cost = AStarSearch(start, targets, graph)
-    viz_path(result, graph, targets)
+    board_viz.viz_path(result, graph, targets)
