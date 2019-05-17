@@ -16,7 +16,7 @@ class Troop(object):
     def distance(self, other):
         return abs(self._pos[0] - other.get_pos()[0]) + abs(self._pos[1] - other.get_pos()[1])
 
-    def target(self, board):
+    def get_targets(self, board):
         targets = []
         if self._target_defense:
             targets = board.get_defensive_buildings()
@@ -24,8 +24,6 @@ class Troop(object):
                 targets = board.get_buildings()
         else:
             targets = board.get_buildings()
-
-        # use dijkstra algorithm to find buildings
-        closest_target = min(targets)
+        return targets
 
 
