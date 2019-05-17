@@ -13,6 +13,9 @@ class Troop(game_object.GameObject):
         self._attacking = None
         self._level = level
 
+    def __repr__(self):
+        return "Name: %s HP: %d DPS: %d" % (self._name, self._hp, self._dps)
+
     def is_alive(self):
         return self._hp > 0
 
@@ -42,9 +45,9 @@ class Troop(game_object.GameObject):
         if self._target_defense:
             targets = board.get_defensive_buildings()
             if not len(targets):
-                targets = board.get_buildings()
+                targets = board.get_non_wall_buildings()
         else:
-            targets = board.get_buildings()
+            targets = board.get_non_wall_buildings()
         return targets
 
 

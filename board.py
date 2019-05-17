@@ -74,6 +74,9 @@ class GameBoard(object):
     def get_buildings(self):
         return self._buildings
 
+    def get_non_wall_buildings(self):
+        return [b for b in self._buildings if b.__class__ != Wall]
+
     #TODO:
     # can be optimized by returning the changed walls from GameBoard.move_walls
     def set_walls(self,walls):
@@ -94,7 +97,7 @@ class GameBoard(object):
                 pass
 
     def get_walls(self):
-        return [b for b in self._buildings if b.get_name() == "wall"]
+        return [b for b in self._buildings if b.__class__ == Wall]
 
     def get_building_from_pos(self, pos):
         buildings = [b for b in self._buildings if pos == b.get_pos()]

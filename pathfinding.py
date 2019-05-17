@@ -12,8 +12,11 @@ class AStarGraph(object):
     def __init__(self, game_board):
         self.barriers = []
         self._game_board = game_board
+        self.set_barriers()
 
-        for building in game_board.get_buildings():
+    def set_barriers(self):
+        self.barriers = []
+        for building in self._game_board.get_buildings():
             if building.get_name() == "wall":
                 self.barriers.append(building.get_pos())
 
@@ -33,7 +36,11 @@ class AStarGraph(object):
         for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1), (-1, 1), (1, -1)]:
             x2 = pos[0] + dx
             y2 = pos[1] + dy
-            if x2 < 0 or x2 > BOARD_SIZE or y2 < 0 or y2 > BOARD_SIZE or (x2, y2) in self.barriers:
+            if (
+                x2 < -MARGIN or x2 > BOARD_SIZE + MARGIN
+                or y2 < -MARGIN or y2 > BOARD_SIZE + MARGIN
+                or (x2, y2) in self.barriers
+            ):
                 continue
             n.append((x2, y2))
         return n
@@ -46,6 +53,9 @@ class AStarGraph(object):
 
 
 def AStarSearch(start, targets, graph):
+    # remove every barrier that is in the targets
+    graph.barriers = list(set(targets) & set(graph.barriers))
+
     G = {}  # Actual movement cost to each position from the start position
     F = {}  # Estimated movement cost of start to end going via this position
 
@@ -102,6 +112,8 @@ def AStarSearch(start, targets, graph):
 
 
 def Dijkstra(start, targets, graph):
+    graph.barriers = list(set(graph.barriers) - set(targets))
+
     G = {}  # Actual movement cost to each position from the start position
     F = {}  # Estimated movement cost of start to end going via this position
 
