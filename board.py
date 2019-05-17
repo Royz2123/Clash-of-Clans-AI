@@ -96,6 +96,20 @@ class GameBoard(object):
             for j in range(GameBoard.BOARD_SIZE):
                 pass
 
+    def get_walls(self):
+        return [b for b in self._buildings if b.get_name() == "wall"]
+
+    def get_building_from_pos(self, pos):
+        buildings = [b for b in self._buildings if pos == b.get_pos()]
+        if len(buildings):
+            return buildings[0]
+        else:
+            print("Building doesnt exist")
+            return None
+
+    def destroy_building(self, building):
+        self._buildings.remove(building)
+
 
     def get_walls_positions(self):
         return 0

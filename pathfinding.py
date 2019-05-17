@@ -29,7 +29,7 @@ class AStarGraph(object):
     def get_vertex_neighbours(self, pos):
         n = []
         # Moves allow link a chess king
-        for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+        for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1), (-1, 1), (1, -1)]:
             x2 = pos[0] + dx
             y2 = pos[1] + dy
             if x2 < 0 or x2 > 15 or y2 < 0 or y2 > 15 or (x2, y2) in self.barriers:
@@ -100,21 +100,74 @@ def AStarSearch(start, targets, graph):
     return [], 0
 
 
+def Dijkstra(start, targets, graph):
+    G = {}  # Actual movement cost to each position from the start position
+    F = {}  # Estimated movement cost of start to end going via this position
+
+    # Initialize starting values
+    G[start] = 0
+    F[start] = graph.heuristic(start, targets)
+
+    closedVertices = list()
+    openVertices = [start]
+    cameFrom = {}
+
+    while len(openVertices) > 0:
+        # Get the vertex in the open list with the lowest F score
+        current = openVertices[0]
+
+        # Check if we have reached the goal
+        if current in targets:
+            # Retrace our route backward
+            path = [current]
+            while current in cameFrom:
+                current = cameFrom[current]
+                path.append(current)
+            path.reverse()
+            return path, F[current]  # Done!
+
+        # Mark the current vertex as closed
+        openVertices = openVertices[1:]
+        closedVertices.append(current)
+
+        # Update scores for vertices near the current position
+        for neighbour in graph.get_vertex_neighbours(current):
+            if neighbour in closedVertices:
+                continue  # We have already processed this node exhaustively
+            candidateG = G[current] + graph.move_cost(current, neighbour)
+
+            if neighbour not in openVertices:
+                openVertices.append(neighbour)  # Discovered a new vertex
+            elif candidateG >= G[neighbour]:
+                continue  # This G score is worse than previously found
+
+            # Adopt this G score
+            cameFrom[neighbour] = current
+            G[neighbour] = candidateG
+            H = graph.heuristic(neighbour, targets)
+            F[neighbour] = G[neighbour] + H
+
+    print("Dijkstra failed to find a solution")
+    return [], 0
+
+
 def viz_path(result, graph, targets):
-    for point in result:
-        circle = plt.Circle(point, 0.2, color='r')
+    for (x, y) in result:
+        circle = plt.Circle((y, x), 0.2, color='r')
         plt.gcf().gca().add_artist(circle)
 
-    for barrier in graph.barriers:
-        circle = plt.Circle(barrier, 0.2)
+    for (x, y) in graph.barriers:
+        circle = plt.Circle((y, x), 0.2)
         plt.gcf().gca().add_artist(circle)
 
-    for target in targets:
-        circle = plt.Circle(target, 0.2, color='g')
-        plt.gcf().gca().add_artist(circle)
+    for (x, y) in targets:
+        if not (x, y) in graph.barriers:
+            circle = plt.Circle((y, x), 0.2, color='g')
+            plt.gcf().gca().add_artist(circle)
 
     plt.xlim(-1, 15)
     plt.ylim(-1, 15)
+    plt.gca().invert_yaxis()
     plt.show()
 
 
