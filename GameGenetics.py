@@ -1,6 +1,7 @@
 from board import GameBoard, create_obj_from_index,BUILDINGS_MAP
 from buildings import *
 from random import random, randint
+from constants import *
 
 
 class GameGenetics:
@@ -35,7 +36,7 @@ class GameGenetics:
                 while True:
                     # choosing random positions on the board
                     x, y = tuple(
-                        random.sample(range(0, GameBoard.BOARD_SIZE), 2))
+                        random.sample(range(0, BOARD_SIZE), 2))
                     # creating our building
                     curr_obj = create_obj_from_index(i)(pos=(x, y),
                                                         level=self.levels[i])

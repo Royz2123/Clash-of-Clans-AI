@@ -1,5 +1,6 @@
 from buildings import *
 import numpy as np
+from constants import *
 
 # dictionary for our buildings
 # Has to be from 1 to n
@@ -21,7 +22,6 @@ def create_obj_from_index(search_index):
 
 class GameBoard(object):
     BIGGEST_BUILDING_SIZE = len(BUILDINGS_MAP)
-    BOARD_SIZE = 50
     HTML_FILE = "./visualize/index.html"
     EYECATCHER_START = "<!--EYECATCHERSTART-->"
     EYECATCHER_END = "<!--EYECATCHEREND-->"
@@ -34,14 +34,14 @@ class GameBoard(object):
 
 
     def add_emptys(self):
-        board=np.zeros((GameBoard.BOARD_SIZE,GameBoard.BOARD_SIZE))
+        board=np.zeros((BOARD_SIZE,BOARD_SIZE))
         for building in self._buildings:
             for x, y in building.get_loc_list():
                 board[x][y] = BUILDINGS_MAP[building.__class__]
 
         for size in range(1,GameBoard.BIGGEST_BUILDING_SIZE+1):
-            for i in range(GameBoard.BOARD_SIZE-size):
-                for j in range(GameBoard.BOARD_SIZE-size):
+            for i in range(BOARD_SIZE-size):
+                for j in range(BOARD_SIZE-size):
                     if (board[i:i+size][j:j+size]==BUILDINGS_MAP.get(Wall)).all():
                         self._buildings.append(Empty(size_=size,pos_=(i,j)))
 
