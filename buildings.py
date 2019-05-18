@@ -2,7 +2,7 @@ import game_object
 
 
 class Building(game_object.GameObject):
-    def __init__(self, hp=1, dps=1, splash=False, level=1, pos=(0, 0), attack_range=1, name="archer", size=3, gold=0, elixir=0, dark=0):
+    def __init__(self, hp=1, dps=0, splash=False, level=1, pos=(0, 0), attack_range=1, name="archer", size=3, gold=0, elixir=0, dark=0):
         super(Building, self).__init__(pos, size)
         self._hp = hp
         self._dps = dps

@@ -1,6 +1,12 @@
 function setHeroes(){for(var t=0,i=0,n=2;n<=40;n++)statsV.time.herobarbarian[n]=n<15?(n-1)*720:10080,statsV.time.heroarcher[n]=n<15?(n-1)*720:10080,n<=6?(t=10+(n-1)*2.5,i=20+(n-1)*2.5):(i=30+(n-6)*5,t=
 n<=19?20+(n-6)*5:80+(n-19)*10),statsV.cost.herobarbarian[n]=t,statsV.cost.heroarcher[n]=i}function gmInit(){var i,n,t,r,u,f;for(i in defaultQ)defaultQ[i+"U"]=defaultQ[i][thL]+0,n=document.getElementById(
-"coc-"+i),n&&(n.childNodes[0].innerHTML="&nbsp;"+defaultQ[i][thL],n.className+=i=="wall"||!defaultLVL[i]?"":" b-l"+defaultLVL[i][thL]);setTHL(9);n=document.body;t=document.getElementById("grid-canvas");
+"coc-"+i),n&&(n.childNodes[0].innerHTML="&nbsp;"+defaultQ[i][thL],n.className+=i=="wall"||!defaultLVL[i]?"":" b-l"+defaultLVL[i][thL]);
+
+
+setTHL(3);
+
+
+n=document.body;t=document.getElementById("grid-canvas");
 layoutPreview?(attachE(n,"mousemove",gMMOVE),attachE(n,"mouseup",gMUP),attachE(n,"touchmove",gMMOVE),attachE(n,"touchend",gMUP),attachE(t,"mousedown",function(n){dragStart(n,t)}),attachE(t,"touchstart",
 function(n){dragStart(n,t)})):("ontouchstart"in document.documentElement||navigator.userAgent.match(/iPhone|iPod|iPad|Android/i)?(layoutTouch=!0,attachE(t,"touchstart",gMDOWN),attachE(t,"touchmove",gMMOVE),
 attachE(t,"touchend",gMUP),attackMode||(r=document.getElementById("buildings"),attachE(r,"touchstart",gMDOWN),attachE(r,"touchmove",gMMOVE),attachE(r,"touchend",gMUP))):(attachE(n,"mousedown",gMDOWN),
@@ -241,7 +247,16 @@ n){var t,i;n=n?n:event;t=document.getElementById("grid-canvas");t.stime=0;i=getZ
 i=Math.round(t.z*100*n.scale);t.tmpz=(i<50?50:i>150?150:i)/100;gmSetZoom(t,"none",t.tmpz)}function gmZoomTouchE(n,t){n=n?n:event;t.z=!1;gmSetZoom(t,"none",t.tmpz)}function gmWinHeight(n,t){h=window.innerHeight;
 var i=document.getElementById("grid-box"),r=document.getElementById("tools-box"),u=document.getElementById("buildings");contentSize()?(i.style.height=h+"px",u.style.height=h-32+"px",r.style.top=-h+"px"):
 (i.style.height="900px",u.style.height="",r.style.top="-900px");t||(h==301||h==320)&&setTimeout(function(){window.scrollTo(0,0);isFS=addBodyClass("fullscreen",1)},1)}function gmWinScroll(n){gmWinHeight(
-n,!0)}var thL=9,defaultQ={},defaultDPS={},defaultLVL={},defaultHP={},defaultTS={},statsV={res:{},time:{},cost:{},rlvl:{},tcost:{}},k,calc;defaultQ.twallbreaker=[0,5,5,5,5,5,10,10,15,20,30];defaultQ.tbarbarian=
+n,!0)}
+
+
+
+var thL=9,
+
+
+
+
+defaultQ={},defaultDPS={},defaultLVL={},defaultHP={},defaultTS={},statsV={res:{},time:{},cost:{},rlvl:{},tcost:{}},k,calc;defaultQ.twallbreaker=[0,5,5,5,5,5,10,10,15,20,30];defaultQ.tbarbarian=
 [0,250,250,250,250,250,250,250,250,250,250];defaultDPS.tbarbarian=[0,8,11,14,18,23,26,30];defaultDPS.tarcher=[0,7,9,12,16,20,22,25];defaultDPS.tgoblin=[0,11,14,19,24,32,32,32];defaultDPS.tgiant=[0,11,
 14,19,24,31,40,40];defaultDPS.twallbreaker=[0,12,16,24,32,46,60,60];defaultDPS.tballoon=[0,25,32,48,72,108,162,162];defaultDPS.twizard=[0,50,70,90,125,170,180,180];defaultDPS.thealer=[0,35,42,55,71,71,
 71,71];defaultDPS.tdragon=[0,140,160,180,190,190,190,190];defaultDPS.tpekka=[0,240,270,300,340,380,380,380];defaultDPS.tminion=[0,35,38,42,46,50,54,54];defaultDPS.thogrider=[0,60,70,80,92,105,105,105];
@@ -330,4 +345,4 @@ statsV.tcost.tpekka=["e",3e4,35e3,42e3,45e3,5e4];statsV.tcost.tminion=["d",6,7,8
 22e3,24e3];statsV.tcost.trage=["g",23e3,25e3,27e3,3e4,33e3];statsV.tcost.tjump=["g",23e3,29e3];statsV.tcost.tfreeze=["g",26e3,29e3,31e3,33e3];var drawMode="",cItem,cBtn,IDK=0,isRotated=!1,lastXY=!1,attackMode=
 document.attackMode,isDrag=0,dragMode=0,dragFX=0,dragFY=0,hasDrag=0,mapSize=44+(attackMode?4:0),layoutID=!1,layoutPass=!1,layoutName="",layoutData="",layoutType="H",layoutUID=0,layoutPreview=!1,layoutDesc=
 "",layoutTouch=!1,layoutLoaded=!1,showDrop=!1,isFS=!1,wallA=new Array(mapSize+1),wallL=new Array(mapSize+1),wallLVL=1,transType="webkit";for(k=0;k<mapSize+2;k++)wallA[k]=new Array(mapSize+1),wallL[k]=
-new Array(mapSize+1);navigator.userAgent.match(/iPhone|iPod|iPad/i)&&(layoutTouch=!0,attachE(window,"load",function(){addBodyClass("touch")}));setHeroes();calc={}
+new Array(mapSize+1);navigator.userAgent.match(/iPhone|iPod|iPad/i)&&(layoutTouch=!0,attachE(window,"load",function(){addBodyClass("touch")}));setHeroes();calc={};
