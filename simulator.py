@@ -48,7 +48,7 @@ class Simulator(object):
                         troop.set_attacking(None)
 
             # base attacks back
-            for building in self._game_board.get_buildings():
+            for building in base_state.get_buildings():
                 if building.is_defensive() and len(army_state):
                     army_state = building.attack(army_state)
 

@@ -84,8 +84,7 @@ def viz_path(result, graph, targets):
 
 def create_video(path):
     w, h, d = cv2.imread(path + os.listdir(path)[0]).shape
-    print(w, h)
-    out = cv2.VideoWriter(path + 'output.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 10, (h, w))
+    out = cv2.VideoWriter(path + 'output.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 7, (h, w))
 
     for file in os.listdir(path):
         filepath = path + file
