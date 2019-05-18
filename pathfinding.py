@@ -15,10 +15,7 @@ class AStarGraph(object):
         self.set_barriers()
 
     def set_barriers(self):
-        self.barriers = []
-        for building in self._game_board.get_buildings():
-            if building.get_name() == "wall":
-                self.barriers.append(building.get_pos())
+        self.barriers = [wall.get_pos() for wall in self._game_board.get_walls()]
 
     def heuristic(self, start, goal):
         return 0
