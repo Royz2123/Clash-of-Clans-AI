@@ -1,36 +1,37 @@
 from buildings import *
 import numpy as np
 from constants import *
-
-# dictionary for our buildings
-# Has to be from 1 to n
-BUILDINGS_MAP = {
-    Cannon: 1,
-    ArcherTower: 2,
-    TownHall: 3,
-    Wall: 4,
-    Mortar: 5,
-    Empty: 6
-}
+from generate_base import generate_random_base,create_obj_from_index
 
 
-def create_obj_from_index(search_index):
-    for obj, index in BUILDINGS_MAP.items():
-        if index == search_index:
-            return obj
-    return None
+
+
+
+
+
 
 class GameBoard(object):
-    BIGGEST_BUILDING_SIZE = len(BUILDINGS_MAP)
+    BIGGEST_BUILDING_SIZE = 5
     HTML_FILE = "./visualize/index.html"
     EYECATCHER_START = "<!--EYECATCHERSTART-->"
     EYECATCHER_END = "<!--EYECATCHEREND-->"
 
+    """
+         This method generates random buildings permutation
+         """
+
+    def create_buildings(quants,levels):
+        return generate_random_base(quants, levels)
+
     DEFAULT_BASE = [Cannon((1, 0))]
 
-    def __init__(self, buildings=[Mortar((0, 0))]):
-        self._buildings = buildings
+    def __init__(self, buildings=None):
+        if buildings is None:
+            self._buildings=GameBoard.create_buildings(QUANTS,LEVELS)
+        else:
+            self._buildings = buildings
         self.add_emptys()
+
 
 
     def add_emptys(self):

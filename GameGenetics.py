@@ -11,46 +11,26 @@ class GameGenetics:
 
     def __init__(self, buildings=None):
         if buildings is None:
-            buildings=self.create_buildings()
-        self.quants=[0]*len(quants)
-        self.levels=[0]*len(levels)
-        for building in buildings:
-            index=BUILDINGS_MAP[building.__class__]
-            self.quants[index]+=1
-            self.levels[index]=building.get_level()
+            self.quants=QUANTS
+            self.levels=LEVELS
+            buildings=GameBoard.create_buildings(self.quants,self.levels)
+        else:
+            self.quants=[0]*GameBoard.BIGGEST_BUILDING_SIZE
+            self.levels=[0]*GameBoard.BIGGEST_BUILDING_SIZE
+            for building in buildings:
+                index=BUILDINGS_MAP[building.__class__]
+                self.quants[index]+=1
+                self.levels[index]=building.get_level()
 
         self.game_board = GameBoard(buildings)
 
 
-    """
-    This method generates random buildings permutation
-    """
-    def create_buildings(self):
-        buildings = []
-        # adding all types of buildings
-        for i in range(1, len(self.quants)):
-            # adding each one the amount of times nessecrry
-            for j in range(self.quants[i]):
-                # choosing random position until done.
-                #TODO: implemnt overlap with x,y only.
-                while True:
-                    # choosing random positions on the board
-                    x, y = tuple(
-                        random.sample(range(0, BOARD_SIZE), 2))
-                    # creating our building
-                    curr_obj = create_obj_from_index(i)(pos=(x, y),
-                                                        level=self.levels[i])
-                    if not any(
-                            [curr_obj.overlap(other) for other in buildings]):
-                        break
-                buildings.append(curr_obj)
-        return buildings
 
     """
     create_individual method that will be used in GA
     """
     def create_individual(self):
-        return GameGenetics(buildings=self.create_buildings())
+        return GameGenetics(buildings=GameBoard.create_buildings(self.quants,self.levels))
 
     """
     Our fitness function, currently linear.

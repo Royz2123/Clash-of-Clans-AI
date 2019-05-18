@@ -72,7 +72,7 @@ class Archer(Troop):
     def __init__(self, pos, level=3):
         super(Archer, self).__init__(
             pos=pos,
-            name="barbarian",
+            name="archer",
             hp=Archer.HPS[level],
             dps=Archer.DPS[level],
             level=level,
@@ -86,7 +86,7 @@ class Giant(Troop):
     def __init__(self, pos, level=3):
         super(Giant, self).__init__(
             pos=pos,
-            name="barbarian",
+            name="giant",
             hp=Giant.HPS[level],
             dps=Giant.DPS[level],
             level=level,
