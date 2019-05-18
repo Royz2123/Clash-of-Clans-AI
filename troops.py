@@ -3,7 +3,7 @@ import game_object
 
 class Troop(game_object.GameObject):
 
-    def __init__(self, hp=1000, name="Troop", dps=1, size=1, td=False, pos=(0,0), level=1):
+    def __init__(self, hp=1, name="Troop", dps=1, size=1, td=False, pos=(0,0), level=1, range=0):
         super(Troop, self).__init__(pos, size)
         self._name = name
         self._hp = hp
@@ -12,6 +12,7 @@ class Troop(game_object.GameObject):
         self._pos = pos
         self._attacking = None
         self._level = level
+        self._range = range
 
     def __repr__(self):
         return "Name: %s HP: %d DPS: %d" % (self._name, self._hp, self._dps)
@@ -24,6 +25,9 @@ class Troop(game_object.GameObject):
 
     def get_hp(self):
         return self._hp
+
+    def get_range(self):
+        return self._range
 
     def get_attacking(self):
         return self._attacking
@@ -72,10 +76,11 @@ class Archer(Troop):
     def __init__(self, pos, level=3):
         super(Archer, self).__init__(
             pos=pos,
-            name="barbarian",
+            name="archer",
             hp=Archer.HPS[level],
             dps=Archer.DPS[level],
             level=level,
+            range=2.5
         )
 
 
@@ -86,8 +91,9 @@ class Giant(Troop):
     def __init__(self, pos, level=3):
         super(Giant, self).__init__(
             pos=pos,
-            name="barbarian",
+            name="giant",
             hp=Giant.HPS[level],
             dps=Giant.DPS[level],
             level=level,
+            td=True
         )

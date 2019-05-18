@@ -32,6 +32,11 @@ class GameBoard(object):
         self._buildings = buildings
         self.add_emptys()
 
+    def calc_hp(self):
+        return sum([building.get_hp() for building in self.get_non_wall_buildings()])
+
+    def has_townhall(self):
+        return any([b.__class__ == TownHall for b in self._buildings])
 
     def add_emptys(self):
         board=np.zeros((BOARD_SIZE,BOARD_SIZE))
@@ -50,7 +55,7 @@ class GameBoard(object):
 
     def html_repr(self):
         html_repr = ""
-        for building in self._buildings:
+        for building in self.get_real_buildings():
             html_repr += "%s\n" % building.create_html()
         return html_repr
 
@@ -79,9 +84,11 @@ class GameBoard(object):
     def get_buildings(self):
         return self._buildings
 
-    def get_non_wall_buildings(self):
-        return [b for b in self._buildings if b.__class__ != Wall]
+    def get_real_buildings(self):
+        return [b for b in self._buildings if b.__class__ != Empty]
 
+    def get_non_wall_buildings(self):
+        return [b for b in self._buildings if b.__class__ not in [Wall, Empty]]
 
     def get_walls(self):
         return [b for b in self._buildings if b.__class__ == Wall]

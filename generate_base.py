@@ -2,12 +2,14 @@ import board
 import random
 from constants import *
 
+
 def generate_random_base(quants, levels):
     buildings = []
     for i in range(1, len(quants)):
         for j in range(quants[i]):
             while True:
-                x, y = tuple(random.sample(range(0, BOARD_SIZE), 2))
+                size = board.create_obj_from_index(i)(pos=(0, 0), level=1).get_size()
+                x, y = tuple(random.sample(range(0, BOARD_SIZE - size), 2))
                 curr_obj = board.create_obj_from_index(i)(pos=(x, y), level=levels[i])
                 if not any([curr_obj.overlap(other) for other in buildings]):
                     break

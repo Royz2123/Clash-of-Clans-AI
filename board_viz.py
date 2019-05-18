@@ -26,7 +26,7 @@ def viz_path2(result, graph, targets):
 
 
 def viz_board(game_board, army):
-    buildings = [b.get_pos() for b in game_board.get_buildings()]
+    buildings = [b.get_pos() for b in game_board.get_real_buildings()]
     army = [b.get_pos() for b in army]
 
     draw_list(buildings, color='y')

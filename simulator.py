@@ -8,6 +8,7 @@ class Simulator(object):
 
     def __init__(self, game_board):
         self._game_board = game_board
+        self._plans = {}
         self._iteration = 0
 
     def run(self, army):
@@ -20,7 +21,6 @@ class Simulator(object):
         while len(army_state) and len(base_state.get_non_wall_buildings()):
             # army advances
             for troop in army_state:
-                print(troop)
                 if troop.get_attacking() is None:
                     pos, reached = self.troop_step(troop, base_state, board_graph)
                     if reached:
@@ -50,18 +50,43 @@ class Simulator(object):
             print("Iteration ", self._iteration, ": Army Size - ", len(army_state))
             base_state.update_viz()
 
-    def troop_step(self, troop, base_state, board_graph):
-        targets_loc = [t.get_pos() for t in troop.get_targets(base_state)]
-        result, cost = pathfinding.Dijkstra(troop.get_pos(), targets_loc, board_graph)
+        # return run stats
+        percent = (self._game_board.calc_hp() - base_state.calc_hp()) / self._game_board.calc_hp()
+        th_destroyed = not base_state.has_townhall()
+        stats = {
+            "base_won": len(base_state.get_non_wall_buildings()) != 0,
+            "percent": percent,
+            "stars": th_destroyed + (percent >= 0.5) + (percent >= 1)
+        }
+        print(stats)
+        return stats
 
-        # Attack nearest wall if no path to target
-        if len(result) == 0 or len(result) > Simulator.MAX_PATH_FOR_TROOP:
-            targets_loc = [t.get_pos() for t in base_state.get_walls()]
+    def troop_step(self, troop, base_state, board_graph):
+        # check if already has a valid cached plan
+        if (
+            self._plans.get(troop) is not None
+            and base_state.get_building_from_pos(self._plans.get(troop)[-1]) is not None
+        ):
+            result = self._plans.get(troop)
+            result = result[1:]
+            self._plans[troop] = result
+        else:
+            targets_loc = [t.get_pos() for t in troop.get_targets(base_state)]
             result, cost = pathfinding.Dijkstra(troop.get_pos(), targets_loc, board_graph)
 
-        # board_viz.viz_path(result, board_graph, targets_loc)
+            # Attack nearest wall if no path to target
+            if len(result) == 0 or len(result) > Simulator.MAX_PATH_FOR_TROOP:
+                targets_loc = [t.get_pos() for t in base_state.get_walls()]
+                result, cost = pathfinding.Dijkstra(troop.get_pos(), targets_loc, board_graph)
 
-        if len(result) == 1:
-            return result[0], True
+            # show path
+            # board_viz.viz_path(result, board_graph, targets_loc)
+
+            # cache this plan
+            self._plans[troop] = result
+
+        if len(result) <= troop.get_range() + 1:
+            self._plans[troop] = None
+            return result[-1], True
         else:
-            return result[1], False
+            return result[0], False

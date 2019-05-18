@@ -14,7 +14,8 @@ def main():
 
     # create simulator
     sim = simulator.Simulator(gb)
-    sim.run(army)
+    stats = sim.run(army)
+    print(stats)
 
 if __name__ == "__main__":
     main()
