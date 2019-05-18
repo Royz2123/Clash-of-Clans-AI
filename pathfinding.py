@@ -109,6 +109,7 @@ def AStarSearch(start, targets, graph):
 
 
 def Dijkstra(start, targets, graph):
+    graph.set_barriers()
     graph.barriers = list(set(graph.barriers) - set(targets))
 
     G = {}  # Actual movement cost to each position from the start position
@@ -156,8 +157,6 @@ def Dijkstra(start, targets, graph):
             G[neighbour] = candidateG
             H = graph.heuristic(neighbour, targets)
             F[neighbour] = G[neighbour] + H
-
-    print("Dijkstra failed to find a solution")
     return [], 0
 
 
