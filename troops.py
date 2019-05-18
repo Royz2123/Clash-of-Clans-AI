@@ -26,6 +26,9 @@ class Troop(game_object.GameObject):
     def get_hp(self):
         return self._hp
 
+    def get_name(self):
+        return self._name
+
     def get_range(self):
         return self._range
 

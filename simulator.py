@@ -2,9 +2,12 @@ import board
 import pathfinding
 import copy
 import board_viz
+import random
+import os
 
 class Simulator(object):
     MAX_PATH_FOR_TROOP = 25
+    ATTACK_PATH = "./attacks/"
 
     def __init__(self, game_board):
         self._game_board = game_board
@@ -13,6 +16,10 @@ class Simulator(object):
 
     def run(self, army):
         # Create state for both army and base
+        attack_name = "Attack_%d" % random.sample(range(1, 10000), 1)[0]
+        attack_path = Simulator.ATTACK_PATH + attack_name + "/"
+        os.mkdir(attack_path)
+
         base_state = copy.deepcopy(self._game_board)
         army_state = copy.deepcopy(army)
         board_graph = pathfinding.AStarGraph(base_state)
@@ -41,7 +48,7 @@ class Simulator(object):
                         troop.set_attacking(None)
 
             # base attacks back
-            for building in self._game_board.get_buildings():
+            for building in base_state.get_buildings():
                 if building.is_defensive() and len(army_state):
                     army_state = building.attack(army_state)
 
@@ -49,8 +56,10 @@ class Simulator(object):
             self._iteration += 1
             print("Iteration ", self._iteration, ": Army Size - ", len(army_state))
             base_state.update_viz()
+            board_viz.viz_board(base_state, army_state, attack_path + "%04d.png" % self._iteration)
 
         # return run stats
+        board_viz.create_video(attack_path)
         percent = (self._game_board.calc_hp() - base_state.calc_hp()) / self._game_board.calc_hp()
         th_destroyed = not base_state.has_townhall()
         stats = {

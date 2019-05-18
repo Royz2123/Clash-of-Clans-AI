@@ -1,11 +1,13 @@
 import matplotlib.pyplot as plt
 
 from constants import *
-
+from  buildings import *
 
 import matplotlib.pyplot as plt
 
 from constants import *
+import os
+import cv2
 
 
 def draw_list(lst, color='r'):
@@ -13,6 +15,10 @@ def draw_list(lst, color='r'):
         circle = plt.Circle((y, x), 0.2, color=color)
         plt.gcf().gca().add_artist(circle)
 
+
+def get_color_from_letter(letter):
+    DEFAULT_COLORS = ["b", "g", "r", "c", "m", "y", "k"]
+    return DEFAULT_COLORS[ord(letter) % len(DEFAULT_COLORS)]
 
 def viz_path2(result, graph, targets):
     draw_list(result)
@@ -25,17 +31,35 @@ def viz_path2(result, graph, targets):
     plt.show()
 
 
-def viz_board(game_board, army):
-    buildings = [b.get_pos() for b in game_board.get_real_buildings()]
-    army = [b.get_pos() for b in army]
+def viz_board(game_board, army, path=None, viz=False):
+    for troop in army:
+        x, y = troop.get_pos()
+        letter = troop.get_name()[0]
+        text = plt.text(y, x, letter)
+        plt.gcf().gca().add_artist(text)
+        circle = plt.Circle((y, x), 0.2, color=get_color_from_letter(letter))
+        plt.gcf().gca().add_artist(circle)
 
-    draw_list(buildings, color='y')
-    draw_list(army, color='c')
+    for building in game_board.get_real_buildings():
+        x, y = building.get_pos()
+        name = building.get_name()[:2]
+
+        if building.__class__ != Wall:
+            text = plt.text(y, x, name)
+            plt.gcf().gca().add_artist(text)
+
+        circle = plt.Rectangle((y, x), height=0.5, width=0.5, color=get_color_from_letter(name[1]))
+        plt.gcf().gca().add_artist(circle)
 
     plt.xlim(-MARGIN, BOARD_SIZE + MARGIN)
     plt.ylim(-MARGIN, BOARD_SIZE + MARGIN)
     plt.gca().invert_yaxis()
-    plt.show()
+
+    if path is not None:
+        plt.savefig(fname=path)
+    if viz:
+        plt.show()
+    plt.close()
 
 
 def viz_path(result, graph, targets):
@@ -56,5 +80,17 @@ def viz_path(result, graph, targets):
     plt.ylim(-MARGIN, BOARD_SIZE + MARGIN)
     plt.gca().invert_yaxis()
     plt.show()
+
+
+def create_video(path):
+    w, h, d = cv2.imread(path + os.listdir(path)[0]).shape
+    out = cv2.VideoWriter(path + 'output.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 7, (h, w))
+
+    for file in os.listdir(path):
+        filepath = path + file
+        out.write(cv2.imread(filepath))
+    out.release()
+    cv2.destroyAllWindows()
+
 
 
