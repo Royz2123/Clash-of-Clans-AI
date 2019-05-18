@@ -98,7 +98,6 @@ class GameBoard(object):
         if len(buildings):
             return buildings[0]
         else:
-            print("Building doesnt exist")
             return None
 
     def destroy_building(self, building):
