@@ -1,19 +1,17 @@
 from pyeasyga import pyeasyga
 from GameGenetics import *
 
-print("imported")
 
 seed_data = GameGenetics()
-
+print("seed")
 # initialise the GA
 ga = pyeasyga.GeneticAlgorithm(seed_data,
-                               population_size=200,
-                               generations=100,
-                               mutation_probability=0.2,
+                               population_size=300,
+                               generations=200,
+                               mutation_probability=MUTATION_RATE,
                                elitism=True,
                                maximise_fitness=True)
 
-print("initialized")
 
 # define and set function to create a candidate solution representation
 def create_individual(data):
@@ -22,35 +20,25 @@ def create_individual(data):
 
 ga.create_individual = create_individual
 
-print("created individual")
 
 # define and set the GA's crossover operation
 def crossover(parent_1, parent_2):
-    fit1 = parent_1.fitness()
-    fit2 = parent_2.fitness()
-    prob = fit1 / (fit1 + fit2)
-    if random() < prob:
-        return parent_1
-    return parent_2
-
+    return parent_1,parent_2
 
 ga.crossover_function = crossover
 
-print("crossed over")
-
 # define and set the GA's mutation operation
 def mutate(individual):
-    individual.mutate()
-
+    individual.mutation(MUTATION_CHANGE)
+    return individual
 
 ga.mutate_function = mutate
 
-print("mutated")
 
 # define and set the GA's selection operation
 def selection(population):
-    r = random()
-    fitness_list = [element.fitness() for element in population]
+    r = random.random()
+    fitness_list = [element.genes.get_fitness() for element in population]
     sum_of_fitness = sum(fitness_list)
     probs = [fit / sum_of_fitness for fit in fitness_list]
     i = 0
@@ -61,21 +49,17 @@ def selection(population):
 
 ga.selection_function = selection
 
-print("selected")
 
 # define a fitness function
 def fitness(individual,data):
-    individual.fitness()
+    return individual.get_fitness()
 
 
 ga.fitness_function = fitness  # set the GA's fitness function
 
-print("finessed")
 
 ga.run()  # run the GA
 
-print("run")
 
-GameBoard(ga.best_individual().get_board()).update_viz()
+ga.best_individual()[1].game_board.update_viz()
 
-print("printed")

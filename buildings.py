@@ -2,7 +2,9 @@ import game_object
 
 
 class Building(game_object.GameObject):
-    def __init__(self, hp=1, dps=0, splash=False, level=1, pos=(0, 0), attack_range=1, name="archer", size=3, gold=0, elixir=0, dark=0):
+    def __init__(self, hp=1, dps=0, splash=False, level=1, pos=(0, 0),
+                 attack_range=1, name="archer", size=3, gold=0, elixir=0,
+                 dark=0):
         super(Building, self).__init__(pos, size)
         self._hp = hp
         self._dps = dps
@@ -52,27 +54,29 @@ class Building(game_object.GameObject):
 
     def create_html(self):
         return (
-            '<div class ="coc-b coc-%s b-l%d" id="b-0" '
-            + ' style="left: %dpx; visibility: visible; top: %dpx;" >'
-            + ' <span class ="bi" > </span>'
-            + ' <span class ="radius level-1" style="opacity: 0.195;" > </span>'
-            + ' <span class ="level-s level-u" > </span> '
-            + ' <span class ="level-s level-n" > %d </span> '
-            + ' <span class ="level-s level-d" > </span>'
-            + ' <span class ="coc-drag-arr" style="" > </span > </div >'
-        ) % (
-            self._name,
-            self._level,
-            self._pos[1] * 20,
-            self._pos[0] * 20,
-            self._level,
-        )
+                       '<div class ="coc-b coc-%s b-l%d" id="b-0" '
+                       + ' style="left: %dpx; visibility: visible; top: %dpx;" >'
+                       + ' <span class ="bi" > </span>'
+                       + ' <span class ="radius level-1" style="opacity: 0.195;" > </span>'
+                       + ' <span class ="level-s level-u" > </span> '
+                       + ' <span class ="level-s level-n" > %d </span> '
+                       + ' <span class ="level-s level-d" > </span>'
+                       + ' <span class ="coc-drag-arr" style="" > </span > </div >'
+               ) % (
+                   self._name,
+                   self._level,
+                   self._pos[1] * 20,
+                   self._pos[0] * 20,
+                   self._level,
+               )
 
     def in_attack_range(self, other):
         return self.in_range_l2(other, self._range)
 
     def attack(self, army):
-        closest_troop = min([(troop, self.distance_l2(troop)) for troop in army], key=lambda x: x[1])[0]
+        closest_troop = \
+            min([(troop, self.distance_l2(troop)) for troop in army],
+                key=lambda x: x[1])[0]
 
         if self.in_attack_range(closest_troop):
             # single target
@@ -124,9 +128,10 @@ class ArcherTower(Building):
 
 
 class TownHall(Building):
-    HPS = [0, 1500, 1600, 1850, 2100, 2400, 2800, 3200, 3900, 4600, 5500, 6800, 0, 0]
+    HPS = [0, 1500, 1600, 1850, 2100, 2400, 2800, 3200, 3900, 4600, 5500, 6800,
+           0, 0]
 
-    def __init__(self, pos, level=7):
+    def __init__(self, pos, level=3):
         super(TownHall, self).__init__(
             pos=pos,
             name="townhall",
@@ -135,6 +140,7 @@ class TownHall(Building):
             level=level,
             size=4
         )
+
 
 class Wall(Building):
     HPS = [0, 300, 500, 700, 900, 1400, 2e3, 2500, 3e3, 4e3, 5500, 7e3, 0, 0]
@@ -151,13 +157,13 @@ class Wall(Building):
 
     def create_html(self):
         return (
-            '<div id="wall-39-17" class="wall lvl%d w3" '
-            + 'style="left: %dpx; top: %dpx; display: block;"></div>\n'
-        ) % (
-           self._level,
-           self._pos[1] * 20,
-           self._pos[0] * 20,
-        )
+                       '<div id="wall-39-17" class="wall lvl%d w3" '
+                       + 'style="left: %dpx; top: %dpx; display: block;"></div>\n'
+               ) % (
+                   self._level,
+                   self._pos[1] * 20,
+                   self._pos[0] * 20,
+               )
 
 
 class Mortar(Building):
@@ -174,6 +180,135 @@ class Mortar(Building):
             attack_range=12
         )
 
+
 class Empty(Building):
-    def __init__(self, size_, pos_):
-        super(Empty, self).__init__(size=size_, pos=pos_)
+    def __init__(self, size=0, pos=(0, 0), level=0):
+        super(Empty, self).__init__(size=size, pos=pos)
+
+
+class ElixirStorage(Building):
+    HPS = [0, 400, 600, 800, 1e3, 1200, 1500, 1600, 1700, 1800, 1900, 2100,
+           2500, 0]
+
+    RESOURCES = [0, 1500, 3000, 6000, 12000, 25000, 45000, 100000, 225000,
+                 450000, 850000, 1750000, 2000000, 2500000]
+
+    def __init__(self, pos, level=4):
+        super(ElixirStorage, self).__init__(
+            pos=pos,
+            name="elixerstorage",
+            hp=ElixirStorage.HPS[level],
+            elixir=ElixirStorage.RESOURCES[level],
+            level=level,
+        )
+
+
+class GoldStorage(Building):
+    HPS = [0, 400, 600, 800, 1e3, 1200, 1500, 1600, 1700, 1800, 1900, 2100,
+           2500, 0]
+
+    RESOURCES = [0, 1500, 3000, 6000, 12000, 25000, 45000, 100000, 225000,
+                 450000, 850000, 1750000, 2000000, 2500000]
+
+    def __init__(self, pos, level=4):
+        super(GoldStorage, self).__init__(
+            pos=pos,
+            name="goldstorage",
+            hp=GoldStorage.HPS[level],
+            gold=GoldStorage.RESOURCES[level],
+            level=level,
+        )
+
+
+class GoldCollector(Building):
+    HPS = [0, 400, 450, 500, 550, 590, 610, 630, 660, 680, 710, 750, 0, 0]
+
+    RESOURCES = [0,500,1000,1500,2500,10000,20000,30000,50000,75000,100000,150000,200000,250000]
+
+
+    def __init__(self, pos, level=4):
+        super(GoldCollector, self).__init__(
+            pos=pos,
+            name="gold",
+            gold=GoldCollector.RESOURCES[level],
+            hp=GoldCollector.HPS[level],
+            level=level,
+        )
+
+
+class ElixirCollector(Building):
+    HPS = [0, 400, 450, 500, 550, 590, 610, 630, 660, 680, 710, 750, 0, 0]
+
+    RESOURCES = [0,500,1000,1500,2500,10000,20000,30000,50000,75000,100000,150000,200000,250000]
+
+    def __init__(self, pos, level=4):
+        super(ElixirCollector, self).__init__(
+            pos=pos,
+            name="elixer",
+            hp=ElixirCollector.HPS[level],
+            elixir=ElixirCollector.RESOURCES[level],
+            level=level,
+        )
+
+
+class Barracks(Building):
+    HPS = [0, 250, 270, 280, 290, 310, 320, 340, 350, 390, 420, 0, 0, 0]
+
+    def __init__(self, pos, level=4):
+        super(Barracks, self).__init__(
+            pos=pos,
+            name="barracks",
+            hp=Barracks.HPS[level],
+            level=level,
+        )
+
+
+class ClanCastle(Building):
+    HPS = [0, 1e3, 1400, 2e3, 2600, 3e3, 0, 0, 0, 0, 0, 0, 0, 0]
+
+    def __init__(self, pos, level=4):
+        super(ClanCastle, self).__init__(
+            pos=pos,
+            name="castle",
+            hp=ClanCastle.HPS[level],
+            level=level,
+        )
+
+
+class ArmyCamps(Building):
+    HPS = [0, 400, 500, 600, 700, 800, 1e3, 1200, 1400, 0, 0, 0, 0, 0]
+
+    def __init__(self, pos, level=4):
+        super(ArmyCamps, self).__init__(
+            pos=pos,
+            name="army",
+            hp=ArmyCamps.HPS[level],
+            level=level,
+            size=5
+        )
+
+
+class Labratory(Building):
+    HPS = [0, 500, 550, 600, 650, 700, 750, 830, 950, 1070, 0, 0, 0, 0]
+
+    def __init__(self, pos, level=4):
+        super(Labratory, self).__init__(
+            pos=pos,
+            name="research",
+            hp=Labratory.HPS[level],
+            level=level,
+            size=4
+        )
+
+
+class Builder(Building):
+    HPS = [0, 250, 250, 250, 250, 250, 0, 0, 0, 0, 0, 0, 0, 0]
+
+    def __init__(self, pos, level=4):
+        super(Builder, self).__init__(
+            pos=pos,
+            name="builder",
+            hp=Builder.HPS[level],
+            level=level,
+            size=2
+        )

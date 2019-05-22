@@ -4,8 +4,9 @@ import generate_base
 import generate_army
 import board_viz
 
+
 def main():
-    gb = board.GameBoard(generate_base.generate_surrounded_base_3())
+    gb = board.GameBoard(generate_base.generate_random_base())
     army = generate_army.generate_random_army()
 
     # visualize
@@ -13,9 +14,9 @@ def main():
     gb.update_viz()
 
     # create simulator
-    sim = simulator.Simulator(gb)
-    stats = sim.run(army)
-    print(stats)
+    #sim = simulator.Simulator(gb)
+    #stats = sim.run(army)
+    #print(stats)
 
 if __name__ == "__main__":
     main()

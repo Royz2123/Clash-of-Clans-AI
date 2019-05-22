@@ -1,16 +1,8 @@
-from buildings import *
-BOARD_SIZE = 20
+BOARD_SIZE = 30
 MARGIN = 10
-QUANTS=[2,1,1,1,1]
-LEVELS=[ 3, 2, 3, 3, 1]
+QUANTS = [0, 2, 2, 1, 1, 1, 2, 2, 2, 4, 4, 3, 1, 2, 75]
+LEVELS = [0, 4, 3, 4, 1, 1, 3, 6, 6, 6, 6, 5, 1, 3, 4]
+SMALL_NUMBER = 0.000001
+MUTATION_RATE = 0.9
+MUTATION_CHANGE = 0.1
 
-# dictionary for our buildings
-# Has to be from 1 to n
-BUILDINGS_MAP = {
-    Cannon: 1,
-    ArcherTower: 2,
-    TownHall: 3,
-    Wall: 4,
-    Mortar: 5,
-    Empty: 6
-}
