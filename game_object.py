@@ -9,6 +9,9 @@ class GameObject(object):
             for j in range(self._size):
                 self._loc_list.append((self._pos[0] + i, self._pos[1] + j))
 
+    def overlap_list(self,loc_list):
+        return len(set(self._loc_list) & set(loc_list))
+
     def overlap(self, other):
         return len(set(self._loc_list) & set(other.get_loc_list()))
 

@@ -14,15 +14,18 @@ class Simulator(object):
         self._game_board = game_board
         self._plans = {}
         self._iteration = 0
+        self._orig_hp = game_board.calc_hp()
 
-    def run(self, army, save_end_state=False):
+    def run(self, army, save_end_state=False, viz=False):
         # Create state for both army and base
-        attack_name = "Attack_%d" % random.sample(range(1, 10000), 1)[0]
-        attack_path = Simulator.ATTACK_PATH + attack_name + "/"
-        os.mkdir(attack_path)
-
         base_state = copy.deepcopy(self._game_board)
         army_state = copy.deepcopy(army)
+
+        if viz:
+            attack_name = "Attack_%d" % random.sample(range(1, 10000), 1)[0]
+            attack_path = Simulator.ATTACK_PATH + attack_name + "/"
+            os.mkdir(attack_path)
+
         board_graph = pathfinding.AStarGraph(base_state)
         self._iteration = 0
 
@@ -55,13 +58,14 @@ class Simulator(object):
 
             # print stats
             self._iteration += 1
-            print("Iteration ", self._iteration, ": Army Size - ", len(army_state))
-            base_state.update_viz()
-            board_viz.viz_board(base_state, army_state, attack_path + "%04d.png" % self._iteration)
+
+            if viz:
+                print("Iteration ", self._iteration, ": Army Size - ", len(army_state))
+                base_state.update_viz()
+                board_viz.viz_board(base_state, army_state, attack_path + "%04d.png" % self._iteration)
 
         # return run stats
-        board_viz.create_video(attack_path)
-        percent = (self._game_board.calc_hp() - base_state.calc_hp()) / self._game_board.calc_hp()
+        percent = (self._orig_hp - base_state.calc_hp()) / self._orig_hp
         th_destroyed = not base_state.has_townhall()
         stats = {
             "base_won": len(base_state.get_non_wall_buildings()) != 0,
@@ -70,10 +74,17 @@ class Simulator(object):
             "elixir": self._game_board.calc_elixir(),
             "gold": self._game_board.calc_gold(),
         }
+        print(stats)
+
+        if viz:
+            board_viz.create_video(attack_path)
 
         if save_end_state:
             stats["end_state"] = ", ".join([str(max(0, b.get_percent())) for b in base_state.get_non_wall_orig_buildings()])
         return stats
+
+    def set_game_board(self,board):
+        self._game_board=board
 
     def troop_step(self, troop, base_state, board_graph):
         # check if already has a valid cached plan

@@ -1,16 +1,27 @@
 from buildings import *
 import numpy as np
+from generate_base import generate_random_base
 from constants import *
 
 # dictionary for our buildings
-# Has to be from 1 to n
+# Has to be from 0 to n
+# 0 is Empty BUILDINGS_MAP[-1]=Wall
 BUILDINGS_MAP = {
+    Empty: 0,
     Cannon: 1,
     ArcherTower: 2,
     TownHall: 3,
-    Wall: 4,
+    Labratory: 4,
     Mortar: 5,
-    Empty: 6
+    Builder: 6,
+    ElixirStorage: 7,
+    GoldStorage: 8,
+    GoldCollector: 9,
+    ElixirCollector: 10,
+    Barracks: 11,
+    ClanCastle: 12,
+    ArmyCamps: 13,
+    Wall: 14
 }
 
 
@@ -21,16 +32,30 @@ def create_obj_from_index(search_index):
     return None
 
 
+
+OBJECTS = [create_obj_from_index(i)(pos=(0, 0), level=1) for i in range(len(QUANTS))]
+
+
 class GameBoard(object):
-    BIGGEST_BUILDING_SIZE = len(BUILDINGS_MAP)
+    BIGGEST_BUILDING_SIZE = 5
     HTML_FILE = "./visualize/index.html"
     EYECATCHER_START = "<!--EYECATCHERSTART-->"
     EYECATCHER_END = "<!--EYECATCHEREND-->"
 
+    """
+         This method generates random buildings permutation
+         """
+
+    def create_buildings(quants, levels):
+        return generate_random_base(quants, levels)
+
     DEFAULT_BASE = [Cannon((1, 0))]
 
-    def __init__(self, buildings=[Mortar((0, 0))]):
-        self._buildings = buildings
+    def __init__(self, buildings=None):
+        if buildings is None:
+            self._buildings = GameBoard.create_buildings(QUANTS, LEVELS)
+        else:
+            self._buildings = buildings
         self._orig_buildings = [b for b in buildings]
         self.add_emptys()
 
@@ -60,7 +85,7 @@ class GameBoard(object):
         return any([b.__class__ == TownHall for b in self._buildings])
 
     def add_emptys(self):
-        board=np.zeros((BOARD_SIZE,BOARD_SIZE))
+        board = np.zeros((BOARD_SIZE, BOARD_SIZE))
         for building in self._buildings:
             for x, y in building.get_loc_list():
                 board[x][y] = BUILDINGS_MAP[building.__class__]
@@ -68,8 +93,8 @@ class GameBoard(object):
         for size in range(1,GameBoard.BIGGEST_BUILDING_SIZE+1):
             for i in range(BOARD_SIZE-size):
                 for j in range(BOARD_SIZE-size):
-                    if (board[i:i+size][j:j+size]==BUILDINGS_MAP.get(Wall)).all():
-                        self._buildings.append(Empty(size_=size,pos_=(i,j)))
+                    if (board[i:i+size][j:j+size]==BUILDINGS_MAP.get(Empty)).all():
+                        self._buildings.append(Empty(size=size,pos=(i,j)))
 
     def get_defensive_buildings(self):
         return [b for b in self._buildings if b.is_defensive()]
@@ -126,9 +151,6 @@ class GameBoard(object):
 
     def destroy_building(self, building):
         self._buildings.remove(building)
-
-    def run(self, army):
-        return 0
 
 
 if __name__ == "__main__":

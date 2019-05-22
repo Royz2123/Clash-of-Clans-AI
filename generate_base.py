@@ -1,26 +1,39 @@
 import board
 import random
+from buildings import Wall
 from constants import *
 
 
-def generate_random_base(quants, levels):
+def generate_random_base(quants=QUANTS, levels=LEVELS):
     buildings = []
+
     for i in range(1, len(quants)):
-        for j in range(quants[i]):
-            while True:
-                size = board.create_obj_from_index(i)(pos=(0, 0), level=1).get_size()
-                x, y = tuple(random.sample(range(0, BOARD_SIZE - size), 2))
-                curr_obj = board.create_obj_from_index(i)(pos=(x, y), level=levels[i])
-                if not any([curr_obj.overlap(other) for other in buildings]):
-                    break
-            buildings.append(curr_obj)
+        if i != board.BUILDINGS_MAP[Wall]:
+            for j in range(quants[i]):
+                while True:
+                    size = board.OBJECTS[i].get_size()
+                    x, y = tuple(random.sample(range(0, BOARD_SIZE - size - 1), 2))
+                    curr_obj = board.create_obj_from_index(i)(pos=(x, y), level=levels[i])
+                    if not any([curr_obj.overlap(other) for other in buildings]):
+                        break
+                buildings.append(curr_obj)
+
+    # Only walls, put in later
+    i = board.BUILDINGS_MAP[Wall]
+    for j in range(quants[i]):
+        while True:
+            size = board.OBJECTS[i].get_size()
+            x, y = tuple(random.sample(range(0, BOARD_SIZE - size - 1), 2))
+            curr_obj = board.create_obj_from_index(i)(pos=(x, y), level=levels[i])
+            if not any([curr_obj.overlap(other) for other in buildings]):
+                break
+        buildings.append(curr_obj)
+
     return buildings
 
 
-def generate_surrounded_base_3():
-    QUANTS = [0, 2, 1, 1, None, 1]
-    LEVELS = [0, 3, 2, 3, 3, 1]
-
+"""
+def generate_random_base():
     buildings = []
     for i in range(1, len(QUANTS)):
         if i == 4:
@@ -40,6 +53,10 @@ def generate_surrounded_base_3():
                         break
                 buildings.append(curr_obj)
     return buildings
+
+
+"""
+
 
 
 def generate_random_base_3():
