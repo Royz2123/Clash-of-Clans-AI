@@ -8,7 +8,7 @@ import generate_army
 import board_viz
 
 
-MAIN_BASE = generate_base.generate_main_base()
+MAIN_BASE = generate_base.generate_random_base()
 DB_SIZE = 2
 DATABASES = "./databases/"
 TYPES = 3

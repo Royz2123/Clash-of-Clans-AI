@@ -1,6 +1,6 @@
 import board
 import random
-from buildings import Wall
+from buildings import *
 from constants import *
 
 
@@ -69,7 +69,6 @@ def generate_random_base_3():
 """
 MAIN BASE WE ARE TRAINING ON
 """
-from buildings_ron import *
 def generate_main_base():
     army1=ArmyCamps(pos=(0,4),level=3)
     army2=ArmyCamps(pos=(0,10),level=3)

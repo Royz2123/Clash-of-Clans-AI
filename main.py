@@ -6,7 +6,7 @@ import board_viz
 
 
 def main():
-    gb = board.GameBoard(generate_base.generate_surrounded_base_3())
+    gb = board.GameBoard(generate_base.generate_random_base())
     army, titles = generate_army.generate_random_army()
 
     # visualize
