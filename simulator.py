@@ -5,6 +5,7 @@ import board_viz
 import random
 import os
 
+
 class Simulator(object):
     MAX_PATH_FOR_TROOP = 25
     ATTACK_PATH = "./attacks/"
@@ -14,7 +15,7 @@ class Simulator(object):
         self._plans = {}
         self._iteration = 0
 
-    def run(self, army):
+    def run(self, army, save_end_state=False):
         # Create state for both army and base
         attack_name = "Attack_%d" % random.sample(range(1, 10000), 1)[0]
         attack_path = Simulator.ATTACK_PATH + attack_name + "/"
@@ -40,7 +41,7 @@ class Simulator(object):
                     target = troop.get_attacking()
                     if target in base_state.get_buildings():
                         if target.get_hp() > 0:
-                            target.set_hp(target.get_hp() - troop.get_dps())
+                            target.take_damage(troop.get_dps())
                         if target.get_hp() <= 0:
                             troop.set_attacking(None)
                             base_state.destroy_building(target)
@@ -65,9 +66,13 @@ class Simulator(object):
         stats = {
             "base_won": len(base_state.get_non_wall_buildings()) != 0,
             "percent": percent,
-            "stars": th_destroyed + (percent >= 0.5) + (percent >= 1)
+            "stars": th_destroyed + (percent >= 0.5) + (percent >= 1),
+            "elixir": self._game_board.calc_elixir(),
+            "gold": self._game_board.calc_gold(),
         }
-        print(stats)
+
+        if save_end_state:
+            stats["end_state"] = ", ".join([str(max(0, b.get_percent())) for b in base_state.get_non_wall_orig_buildings()])
         return stats
 
     def troop_step(self, troop, base_state, board_graph):

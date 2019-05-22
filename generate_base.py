@@ -46,3 +46,21 @@ def generate_random_base_3():
     QUANTS = [0, 2, 1, 1, 50, 1]
     LEVELS = [0, 3, 2, 3, 3, 1]
     return generate_random_base(QUANTS, LEVELS)
+
+
+
+"""
+MAIN BASE WE ARE TRAINING ON
+"""
+from buildings_ron import *
+def generate_main_base():
+    army1=ArmyCamps(pos=(0,4),level=3)
+    army2=ArmyCamps(pos=(0,10),level=3)
+    elixir1=ElixirCollector(pos=(3,16),level=6)
+    elixir2=ElixirCollector(pos=(12,16),level=6)
+    elixir3=ElixirCollector(pos=(12,16),level=6)
+
+    pass
+
+
+

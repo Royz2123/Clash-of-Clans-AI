@@ -20,6 +20,7 @@ def create_obj_from_index(search_index):
             return obj
     return None
 
+
 class GameBoard(object):
     BIGGEST_BUILDING_SIZE = len(BUILDINGS_MAP)
     HTML_FILE = "./visualize/index.html"
@@ -30,10 +31,30 @@ class GameBoard(object):
 
     def __init__(self, buildings=[Mortar((0, 0))]):
         self._buildings = buildings
+        self._orig_buildings = [b for b in buildings]
         self.add_emptys()
 
     def calc_hp(self):
         return sum([building.get_hp() for building in self.get_non_wall_buildings()])
+
+    def calc_gold(self):
+        return sum([building.get_gold() for building in self.get_non_wall_buildings()])
+
+    def calc_elixir(self):
+        return sum([building.get_elixir() for building in self.get_non_wall_buildings()])
+
+    def get_titles(self):
+        s = []
+        count = {}
+        for building in self.get_non_wall_orig_buildings():
+            # update building count
+            if building.__class__ not in count.keys():
+                count[building.__class__] = 0
+            count[building.__class__] += 1
+
+            # add to desc list
+            s.append("%s_%d" % (building.get_name(), count[building.__class__]))
+        return ", ".join(s)
 
     def has_townhall(self):
         return any([b.__class__ == TownHall for b in self._buildings])
@@ -66,7 +87,7 @@ class GameBoard(object):
             before, next = content.split(GameBoard.EYECATCHER_START)
             mid, after = next.split(GameBoard.EYECATCHER_END)
 
-            new_content += "%s%s\n%s\n\t\t\t\t%s\n%s" % (
+            new_content += "%s%s\n%s\n\t\t\t\t%s%s" % (
                 before,
                 GameBoard.EYECATCHER_START,
                 self.html_repr(),
@@ -89,6 +110,9 @@ class GameBoard(object):
 
     def get_non_wall_buildings(self):
         return [b for b in self._buildings if b.__class__ not in [Wall, Empty]]
+
+    def get_non_wall_orig_buildings(self):
+        return [b for b in self._orig_buildings if b.__class__ not in [Wall, Empty]]
 
     def get_walls(self):
         return [b for b in self._buildings if b.__class__ == Wall]

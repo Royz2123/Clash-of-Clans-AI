@@ -13,9 +13,22 @@ class Building(game_object.GameObject):
         self._gold = gold
         self._elixir = elixir
         self._dark = dark
+        self._orig_hp = hp
+
+        # resource ratios
+        self._elixir_ratio = self._elixir / self._hp
+        self._gold_ratio = self._gold / self._hp
 
     def get_size(self):
         return self._size
+
+    def get_percent(self):
+        return self._hp / self._orig_hp
+
+    def take_damage(self, damage):
+        self._hp -= damage
+        self._elixir -= self._elixir_ratio * damage
+        self._gold -= self._gold_ratio * damage
 
     def set_size(self, size):
         self._size = size
@@ -23,11 +36,14 @@ class Building(game_object.GameObject):
     def get_pos(self):
         return self._pos
 
+    def get_gold(self):
+        return self._gold
+
+    def get_elixir(self):
+        return self._elixir
+
     def get_hp(self):
         return self._hp
-
-    def set_hp(self, hp):
-        self._hp = hp
 
     def get_dps(self):
         return self._dps
@@ -174,6 +190,8 @@ class Mortar(Building):
             attack_range=12
         )
 
+
 class Empty(Building):
     def __init__(self, size_, pos_):
         super(Empty, self).__init__(size=size_, pos=pos_)
+
