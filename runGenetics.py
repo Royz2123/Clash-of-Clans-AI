@@ -51,7 +51,7 @@ ga.selection_function = selection
 
 
 # define a fitness function
-def fitness(individual,data):
+def fitness(individual, data):
     return individual.get_fitness()
 
 

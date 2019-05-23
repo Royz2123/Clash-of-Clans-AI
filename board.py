@@ -105,6 +105,18 @@ class GameBoard(object):
             html_repr += "%s\n" % building.create_html()
         return html_repr
 
+    def is_legal(self):
+        for b1 in self.get_real_buildings()[:]:
+            for b2 in self.get_real_buildings()[:]:
+                if b1 != b2 and b1.overlap(b2):
+                    print("OVERLAP! ", b1, b2)
+                    if b1.__class__ == Wall and b2.__class__ == Wall:
+                        self._buildings.remove(b1)
+                    else:
+                        return False
+        return True
+
+
     def update_viz(self):
         new_content = ""
         with open(GameBoard.HTML_FILE, "r") as f:

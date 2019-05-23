@@ -47,7 +47,7 @@ class GameGenetics:
 
     def calc_fitness(self):
         outcome = self.run()
-        self._fit = (outcome["percent"] * 100 + outcome["stars"] * 33)
+        self._fit = 2 * outcome["percent"] + 0.3 * outcome["stars"] + outcome["gold"] + outcome["elixir"]
 
     def get_fitness(self):
         return self._fit

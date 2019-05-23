@@ -24,6 +24,9 @@ class Building(game_object.GameObject):
     def get_size(self):
         return self._size
 
+    def __repr__(self):
+        return super(Building, self).__repr__() + " " + self._name
+
     def get_percent(self):
         return self._hp / self._orig_hp
 

@@ -14,9 +14,12 @@ class Simulator(object):
         self._game_board = game_board
         self._plans = {}
         self._iteration = 0
-        self._orig_hp = game_board.calc_hp()
 
-    def run(self, army, save_end_state=False, viz=False):
+        self._orig_hp = game_board.calc_hp()
+        self._orig_elixir = game_board.calc_elixir()
+        self._orig_gold = game_board.calc_gold()
+
+    def run(self, army, save_end_state=False, viz=False, debug=False):
         # Create state for both army and base
         base_state = copy.deepcopy(self._game_board)
         army_state = copy.deepcopy(army)
@@ -59,22 +62,25 @@ class Simulator(object):
             # print stats
             self._iteration += 1
 
-            if viz:
+            if debug or viz:
                 print("Iteration ", self._iteration, ": Army Size - ", len(army_state))
+
+            if viz:
                 base_state.update_viz()
                 board_viz.viz_board(base_state, army_state, attack_path + "%04d.png" % self._iteration)
 
         # return run stats
         percent = (self._orig_hp - base_state.calc_hp()) / self._orig_hp
+        elixir_percent = (self._orig_elixir - base_state.calc_elixir()) / self._orig_elixir
+        gold_percent = (self._orig_gold - base_state.calc_gold()) / self._orig_gold
         th_destroyed = not base_state.has_townhall()
         stats = {
             "base_won": len(base_state.get_non_wall_buildings()) != 0,
             "percent": percent,
             "stars": th_destroyed + (percent >= 0.5) + (percent >= 1),
-            "elixir": self._game_board.calc_elixir(),
-            "gold": self._game_board.calc_gold(),
+            "elixir": elixir_percent,
+            "gold": gold_percent,
         }
-        print(stats)
 
         if viz:
             board_viz.create_video(attack_path)

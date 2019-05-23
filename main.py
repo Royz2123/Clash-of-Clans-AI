@@ -6,7 +6,7 @@ import board_viz
 
 
 def main():
-    gb = board.GameBoard(generate_base.generate_random_base())
+    gb = board.GameBoard(generate_base.generate_main_base())
     army, titles = generate_army.generate_random_army()
 
     # visualize
@@ -15,7 +15,7 @@ def main():
 
     # create simulator
     sim = simulator.Simulator(gb)
-    stats = sim.run(army)
+    stats = sim.run(army, viz=True)
     print(stats)
 
 

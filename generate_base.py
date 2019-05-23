@@ -70,13 +70,79 @@ def generate_random_base_3():
 MAIN BASE WE ARE TRAINING ON
 """
 def generate_main_base():
-    army1=ArmyCamps(pos=(0,4),level=3)
-    army2=ArmyCamps(pos=(0,10),level=3)
-    elixir1=ElixirCollector(pos=(3,16),level=6)
-    elixir2=ElixirCollector(pos=(12,16),level=6)
-    elixir3=ElixirCollector(pos=(12,16),level=6)
+    armys=[]
+    elixirs=[]
+    walls=[]
+    barrackses=[]
+    archers=[]
+    elixir_storages=[]
+    gold_storages=[]
+    cannons=[]
+    golds=[]
+    mortars=[]
+    builders=[]
+    armys.append(ArmyCamps(pos=(0,4),level=3))
+    armys.append(ArmyCamps(pos=(0,10),level=3))
+    elixirs.append(ElixirCollector(pos=(3,16),level=6))
+    elixirs.append(ElixirCollector(pos=(12,16),level=6))
+    for i in range(5,16):
+        walls.append(Wall(pos=(5,i),level=4))
+    barrackses.append(Barracks(pos=(6,2),level=5))
+    barrackses.append(Barracks(pos=(7,16),level=5))
+    archers.append(ArcherTower(pos=(6,6),level=3))
+    elixir_storages.append(ElixirStorage(pos=(6,9),level=6))
+    cannons.append(Cannon(pos=(6,12),level=4))
+    for i in range(3,16):
+        walls.append(Wall(pos=(9,i),level=4))
+    for i in range(6,9):
+        walls.append(Wall(pos=(i,5),level=4))
+        walls.append(Wall(pos=(i,15),level=4))
+    golds.append(GoldCollector(pos=(11,0),level=6))
+    for i in range(10,14):
+        walls.append(Wall(pos=(i,3),level=4))
+        walls.append(Wall(pos=(i,11),level=4))
+    for i in range(10,16):
+        walls.append(Wall(pos=(i,15),level=4))
+    gold_storages.append(GoldStorage(pos=(11,4),level=6))
+    TH=TownHall(pos=(10,7),level=4)
+    mortars.append(Mortar(pos=(10,12),level=1))
+    elixir_storages.append(ElixirStorage(pos=(13,12),level=6))
+    builders.append(Builder(pos=(14,0),level=2))
+    for i in range(3,12):
+        walls.append(Wall(pos=(14,i),level=4))
+    golds.append(GoldCollector(pos=(14,19),level=6))
+    barrackses.append(Barracks(pos=(15,2),level=5))
+    for i in range(15,18):
+        walls.append(Wall(pos=(i,5),level=4))
+    walls.append(Wall(pos=(17,12),level=4))
+    for i in range(5,13):
+        walls.append(Wall(pos=(18,i),level=4))
+    archers.append(ArcherTower(pos=(15,6),level=3))
+    gold_storages.append(GoldStorage(pos=(15,9),level=6))
+    cannons.append(Cannon(pos=(17,13),level=4))
+    Lab=Labratory(pos=(17,17),level=1)
+    golds.append(GoldCollector(pos=(19,2),level=6))
+    elixirs.append(ElixirStorage(pos=(19,5),level=6))
+    Castle=ClanCastle(pos=(19,10),level=1)
+    walls.append(Wall(pos=(20,15),level=4))
+    for i in range(17,21):
+        walls.append(Wall(pos=(i, 16), level=4))
+    for i in range(12,17):
+        walls.append(Wall(pos=(16, i), level=4))
+    elixirs.append(ElixirCollector(pos=(21,13),level=6))
+    golds.append(GoldCollector(pos=(21,16),level=6))
+    buildings = walls + cannons + archers + armys + gold_storages + elixir_storages + barrackses + \
+                mortars + builders + golds + elixirs
+    buildings.append(TH)
+    buildings.append(Lab)
+    buildings.append(Castle)
 
-    pass
+    for b in buildings:
+        x, y = b.get_pos()
+        b.set_pos((y, x))
 
+    board.GameBoard(buildings).is_legal()
+
+    return buildings
 
 
