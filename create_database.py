@@ -26,16 +26,16 @@ def create_db(size=DB_SIZE):
     with open(DATABASES + "X_" + str(size) + ".csv", "w+") as f_army:
         with open(DATABASES + "Y_" + str(size) + ".csv", "w+") as f_res:
             # write headers
-            f_res.write(board.GameBoard(generate_base.generate_random_base()).get_titles() + "\n")
+            f_res.write(board.GameBoard(generate_base.generate_main_base()).get_titles() + "\n")
             f_army.write(generate_army.generate_random_army()[1] + "\n")
 
             for i in range(size):
                 print("Current Row:\t", i)
-                main_board = board.GameBoard(generate_base.generate_random_base())
+                main_board = board.GameBoard(generate_base.generate_main_base())
                 sim = simulator.Simulator(main_board)
                 army, titles = generate_army.generate_random_army()
 
-                stats = sim.run(army, save_end_state=True)
+                stats = sim.run(army, save_end_state=True, debug=True)
 
                 f_army.write(get_writable_army(army) + "\n")
                 f_res.write(stats["end_state"] + "\n")
