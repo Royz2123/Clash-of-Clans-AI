@@ -1,3 +1,4 @@
+color 0a
 git clone https://github.com/ronraisch/Clash-of-Clans-AI.git
 cd Clash-of-Clans-AI
 For %%p IN (where python) DO set PATH=%PATH%;%%p
