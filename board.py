@@ -79,7 +79,7 @@ class GameBoard(object):
 
             # add to desc list
             s.append("%s_%d" % (building.get_name(), count[building.__class__]))
-        return ", ".join(s)
+        return ",".join(s)
 
     def has_townhall(self):
         return any([b.__class__ == TownHall for b in self._buildings])

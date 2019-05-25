@@ -19,34 +19,36 @@ def get_writable_army(army):
         x, y = troop.get_pos()
         s.append(str(x))
         s.append(str(y))
-    return ", ".join(s)
+    return ",".join(s)
 
 
 def create_db(size=DB_SIZE):
-    with open(DATABASES + "X_" + str(size) + ".csv", "w+") as f_army:
-        with open(DATABASES + "Y_" + str(size) + ".csv", "w+") as f_res:
+    with open(DATABASES + "X_" + str(size) + ".csv", "a+") as f_army:
+        with open(DATABASES + "Y_" + str(size) + ".csv", "a+") as f_res:
             # write headers
-            f_res.write(board.GameBoard(generate_base.generate_main_base()).get_titles() + "\n")
+            f_res.write(board.GameBoard(generate_base.generate_main_base()).get_titles() + ",total" + "\n")
             f_army.write(generate_army.generate_random_army()[1] + "\n")
 
-            for i in range(size):
-                print("Current Row:\t", i)
-                main_board = board.GameBoard(generate_base.generate_main_base())
-                sim = simulator.Simulator(main_board)
-                army, titles = generate_army.generate_random_army()
+    # Run "size" simulations
+    # using the same main base for all simulations - no problem with 1 simulator
+    main_board = board.GameBoard(generate_base.generate_main_base())
+    sim = simulator.Simulator(main_board)
+    for i in range(size):
+        print("Current Row:\t", i)
+        army, titles = generate_army.generate_random_army()
 
-                stats = sim.run(army, save_end_state=True, debug=True)
+        stats = sim.run(army, save_end_state=True, debug=True)
 
+        # Open and write in files for every iteration. Append.
+        with open(DATABASES + "X_" + str(size) + ".csv", "a+") as f_army:
+            with open(DATABASES + "Y_" + str(size) + ".csv", "a+") as f_res:
                 f_army.write(get_writable_army(army) + "\n")
                 f_res.write(stats["end_state"] + "\n")
+
     print("Finished DB of size:\t", size)
 
 
 if __name__ == "__main__":
-    create_db(1)
-    create_db(10)
-    create_db(100)
-    create_db(1000)
     create_db(10000)
 
 

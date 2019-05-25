@@ -10,7 +10,7 @@ TROOPS = [
     Giant
 ]
 
-DEFAULT_QUANTS = [13, 13, 10]
+DEFAULT_QUANTS = [13, 13, 5]
 DEFAULT_LEVELS = [4, 4, 3]
 
 # starting distance from base. Must be positive
@@ -39,4 +39,16 @@ def generate_random_army(quants=DEFAULT_QUANTS, levels=DEFAULT_LEVELS):
             army.append(TROOPS[i](pos=(x, y), level=levels[i]))
             titles.append("%s_%d_x" % (army[-1].get_name(), j))
             titles.append("%s_%d_y" % (army[-1].get_name(), j))
-    return army, ", ".join(titles)
+    return army, ",".join(titles)
+
+
+# Generate army from pandas. Need to add quants and levels from the titles
+def generate_army_from_row(row, quants=DEFAULT_QUANTS, levels=DEFAULT_LEVELS):
+    army = []
+    curr_index = 0
+    for i in range(len(quants)):
+        for j in range(quants[i]):
+            x, y = int(row[curr_index]), int(row[curr_index + 1])
+            army.append(TROOPS[i](pos=(x, y), level=levels[i]))
+            curr_index += 2
+    return army

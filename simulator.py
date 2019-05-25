@@ -86,7 +86,10 @@ class Simulator(object):
             board_viz.create_video(attack_path)
 
         if save_end_state:
-            stats["end_state"] = ", ".join([str(max(0, b.get_percent())) for b in base_state.get_non_wall_orig_buildings()])
+            stats["end_state"] = ",".join(
+                [str(max(0, b.get_percent())) for b in base_state.get_non_wall_orig_buildings()]
+                + [str(stats["percent"])]
+            )
         return stats
 
     def set_game_board(self,board):
@@ -105,10 +108,13 @@ class Simulator(object):
             targets_loc = [t.get_pos() for t in troop.get_targets(base_state)]
             result, cost = pathfinding.Dijkstra(troop.get_pos(), targets_loc, board_graph)
 
+            """
             # Attack nearest wall if no path to target
             if len(result) == 0 or len(result) > Simulator.MAX_PATH_FOR_TROOP:
                 targets_loc = [t.get_pos() for t in base_state.get_walls()]
                 result, cost = pathfinding.Dijkstra(troop.get_pos(), targets_loc, board_graph)
+
+            """
 
             # show path
             # board_viz.viz_path(result, board_graph, targets_loc)

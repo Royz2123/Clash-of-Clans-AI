@@ -16,6 +16,7 @@ class Building(game_object.GameObject):
         self._elixir = elixir
         self._dark = dark
         self._orig_hp = hp
+        self._target = None
 
         # resource ratios
         self._elixir_ratio = self._elixir / self._hp
@@ -96,20 +97,27 @@ class Building(game_object.GameObject):
         return self.in_range_l2(other, self._range)
 
     def attack(self, army):
-        closest_troop = min([(troop, self.distance_l2(troop)) for troop in army], key=lambda x: x[1])[0]
+        # check if target can still be hit
+        if (
+            self._target is None
+            or not self._target.is_alive()
+            or self._target not in army
+            or not self.in_attack_range(self._target)
+        ):
+            self._target = min([(troop, self.distance_l2(troop)) for troop in army], key=lambda x: x[1])[0]
 
-        if self.in_attack_range(closest_troop):
+        if self.in_attack_range(self._target):
             # single target
             if not self._splash:
-                closest_troop.set_hp(closest_troop.get_hp() - self._dps)
+                self._target.set_hp(self._target.get_hp() - self._dps)
                 # destroy troop if dead
-                if not closest_troop.is_alive():
-                    army.remove(closest_troop)
+                if not self._target.is_alive():
+                    army.remove(self._target)
             # splash damage
             else:
                 for troop in army:
                     # for now set all splash ranges to 1
-                    if troop.distance_l2(closest_troop) < 1:
+                    if troop.distance_l2(self._target) < 1:
                         troop.set_hp(troop.get_hp() - self._dps)
                         # destroy troop if dead
                         if not troop.is_alive():

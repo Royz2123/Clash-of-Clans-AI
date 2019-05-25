@@ -31,7 +31,7 @@ def viz_path2(result, graph, targets):
     plt.show()
 
 
-def viz_board(game_board, army, path=None, viz=False):
+def plot_army(army):
     for troop in army:
         x, y = troop.get_pos()
         letter = troop.get_name()[0]
@@ -40,6 +40,8 @@ def viz_board(game_board, army, path=None, viz=False):
         circle = plt.Circle((y, x), 0.2, color=get_color_from_letter(letter))
         plt.gcf().gca().add_artist(circle)
 
+
+def plot_board(game_board):
     for building in game_board.get_real_buildings():
         x, y = building.get_pos()
         name = building.get_name()[:2]
@@ -50,6 +52,15 @@ def viz_board(game_board, army, path=None, viz=False):
 
         circle = plt.Rectangle((y, x), height=0.5, width=0.5, color=get_color_from_letter(name[1]))
         plt.gcf().gca().add_artist(circle)
+
+
+def viz_board(game_board=None, army=None, path=None, viz=False):
+    # Plot army and board
+    if army is not None:
+        plot_army(army)
+
+    if game_board is not None:
+        plot_board(game_board)
 
     plt.xlim(-MARGIN, BOARD_SIZE + MARGIN)
     plt.ylim(-MARGIN, BOARD_SIZE + MARGIN)
