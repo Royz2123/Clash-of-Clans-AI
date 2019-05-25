@@ -1,8 +1,8 @@
-import pyeasyga.pyeasyga as ps
-from GameGenetics import *
+
 
 if __name__ == "__main__":
-
+    import pyeasyga.pyeasyga as ps
+    from GameGenetics import *
     seed_data = GameGenetics()
     # initialise the GA
     ga = ps.GeneticAlgorithm(seed_data,
