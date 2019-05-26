@@ -1,6 +1,6 @@
 from buildings import *
 import numpy as np
-from generate_base import generate_random_base
+import generate_base
 from constants import *
 
 # dictionary for our buildings
@@ -47,7 +47,7 @@ class GameBoard(object):
          """
 
     def create_buildings(quants, levels):
-        return generate_random_base(quants, levels)
+        return generate_board.generate_random_base(quants, levels)
 
     DEFAULT_BASE = [Cannon((1, 0))]
 

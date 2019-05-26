@@ -32,7 +32,7 @@ class AStarGraph(object):
     def get_vertex_neighbours(self, pos):
         n = []
         # Moves allow link a chess king
-        for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1), (-1, 1), (1, -1)]:
+        for dx, dy in DIRECTIONS:
             x2 = pos[0] + dx
             y2 = pos[1] + dy
             if (

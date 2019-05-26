@@ -22,7 +22,7 @@ def optimize_function(z, *params):
     if not all([util.in_margins(pair) for pair in pairs]):
         return np.inf
     sim = simulator.Simulator(MAIN_BOARD)
-    stats = sim.run(army, debug=True)
+    stats = sim.run(army, debug=False)
     return 1 - stats["percent"]
 
 
@@ -32,7 +32,7 @@ pairs0 = [t.get_pos() for t in army0]
 x0 = util.list_from_pairs(pairs0)
 
 # run simulated annealing
-ret = optimize.basinhopping(optimize_function, x0)
+ret = optimize.basinhopping(optimize_function, x0, disp=True)
 print("global minimum: x = %.4f, f(x0) = %.4f" % (ret.x, ret.fun))
 army = generate_army.generate_army_from_row(ret.x)
 board_viz.viz_board(viz=True, army=army, game_board=MAIN_BOARD)

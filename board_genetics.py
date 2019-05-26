@@ -7,7 +7,7 @@ from generate_army import *
 from generate_base import *
 
 
-class GameGenetics:
+class BoardGenetics:
     """
     This class manages all of the functions necessery in order to run GA.
     """
