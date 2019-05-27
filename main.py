@@ -15,7 +15,7 @@ import numpy as np
 MAIN_BOARD = generate_base.generate_main_base()
 
 
-def plot_single_barb_mat(armies):
+def plot_single_barb_mat_3d(armies):
     # Make data.
     X = []
     Y = []
@@ -42,9 +42,29 @@ def plot_single_barb_mat(armies):
     plt.show()
 
 
-def main():
+def plot_single_barb_mat(armies):
+    # Make data.
+    mat = np.zeros((BOARD_SIZE + 2 * MARGIN, BOARD_SIZE + 2 * MARGIN))
+
     gb = board.GameBoard(generate_base.generate_main_base())
-    army, titles = generate_army.generate_random_army()
+    sim = simulator.Simulator(gb)
+
+    for army in armies:
+        stats = sim.run(army)
+        x, y = army[0].get_pos()
+        mat[x + MARGIN][y + MARGIN] = stats["percent"]
+
+    # plot 3d
+    plt.title("Attacking Heatmap of 1 super soldier")
+    plt.xlabel("X")
+    plt.ylabel("Y")
+    plt.imshow(mat)
+    plt.show()
+
+
+def main():
+    gb = board.GameBoard(generate_base.generate_base_by_level(2))
+    army, titles = generate_army.generate_army_by_level(2)
 
     # visualize
     board_viz.viz_board(gb, army)
@@ -57,5 +77,5 @@ def main():
 
 
 if __name__ == "__main__":
-    plot_single_barb_mat(generate_army.generate_barb_matrix())
-    #main()
+    # plot_single_barb_mat(generate_army.generate_barb_matrix())
+    main()

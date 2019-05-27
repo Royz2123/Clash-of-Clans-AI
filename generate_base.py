@@ -3,6 +3,8 @@ import random
 from buildings import *
 from constants import *
 
+import base_from_html
+
 
 def generate_random_base(quants=QUANTS, levels=LEVELS):
     buildings = []
@@ -64,6 +66,12 @@ def generate_random_base_3():
     LEVELS = [0, 3, 2, 3, 3, 1]
     return generate_random_base(QUANTS, LEVELS)
 
+
+def generate_base_by_level(level=4, subindex=0):
+    if level == 2:
+        return base_from_html.html_to_game_board(html_file="bases/base_2_th2.html")
+    else:
+        return generate_main_base()
 
 
 """

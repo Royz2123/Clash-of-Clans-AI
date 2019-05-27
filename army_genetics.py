@@ -15,7 +15,7 @@ class ArmyGenetics:
     """
     This class manages all of the functions necessery in order to run GA.
     """
-    DEFAULT_MODE = ELIXIR_LOVER
+    DEFAULT_MODE = DESTORYER
 
     def __init__(self, army=None, buildings=MAIN_BOARD, mode=DEFAULT_MODE):
         if army is None:

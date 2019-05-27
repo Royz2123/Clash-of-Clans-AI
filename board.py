@@ -1,6 +1,5 @@
 from buildings import *
 import numpy as np
-import generate_base
 from constants import *
 
 # dictionary for our buildings
@@ -69,16 +68,10 @@ class GameBoard(object):
          This method generates random buildings permutation
          """
 
-    def create_buildings(quants, levels):
-        return generate_base.generate_random_base(quants, levels)
-
     DEFAULT_BASE = [Cannon((1, 0))]
 
-    def __init__(self, buildings=None):
-        if buildings is None:
-            self._buildings = GameBoard.create_buildings(QUANTS, LEVELS)
-        else:
-            self._buildings = buildings
+    def __init__(self, buildings):
+        self._buildings = buildings
         self._orig_buildings = [b for b in buildings]
         self.add_emptys()
 

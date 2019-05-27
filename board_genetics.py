@@ -4,7 +4,7 @@ from random import random, randint
 from constants import *
 from simulator import *
 from generate_army import *
-from generate_base import *
+import generate_base
 
 
 class BoardGenetics:
@@ -16,7 +16,7 @@ class BoardGenetics:
         if buildings is None:
             self.quants = QUANTS
             self.levels = LEVELS
-            buildings = GameBoard.create_buildings(self.quants, self.levels)
+            buildings = generate_base.generate_random_base(self.quants, self.levels)
         else:
             self.quants = [0] * len(BUILDINGS_MAP)
             self.levels = [0] * len(BUILDINGS_MAP)

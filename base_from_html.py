@@ -53,4 +53,4 @@ def html_to_game_board(html_file="bases/base1.html", viz=True):
 
 
 if __name__ == "__main__":
-    to_buildings()
+    html_to_game_board(html_file="bases/base_2_th2.html")

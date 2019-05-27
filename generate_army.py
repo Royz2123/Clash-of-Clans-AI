@@ -49,3 +49,11 @@ def generate_barb_matrix():
                 super_troop.set_hp(1000)
                 armies.append([super_troop])
     return armies
+
+
+def generate_army_by_level(townhall_level):
+    if townhall_level == 2:
+        return generate_random_army(quants=[10, 8, 2], levels=[2, 2, 1])
+    else:
+        return generate_random_army()
+
