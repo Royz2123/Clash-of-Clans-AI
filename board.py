@@ -24,6 +24,24 @@ BUILDINGS_MAP = {
     Wall: 14
 }
 
+BUILDINGS_MAP_NAME = {
+    "empty" : Empty,
+    "cannon" : Cannon,
+    "archer" : ArcherTower,
+    "townhall" : TownHall,
+    "labratory": Labratory,
+    "mortar": Mortar,
+    "builder": Builder,
+    "elixerstorage": ElixirStorage,
+    "goldstorage": GoldStorage,
+    "gold": GoldCollector,
+    "elixer": ElixirCollector,
+    "barracks": Barracks,
+    "castle": ClanCastle,
+    "army": ArmyCamps,
+    "wall": Wall
+}
+
 
 def create_obj_from_index(search_index):
     for obj, index in BUILDINGS_MAP.items():
@@ -31,6 +49,11 @@ def create_obj_from_index(search_index):
             return obj
     return None
 
+
+def create_obj_from_name(name):
+    if name in BUILDINGS_MAP_NAME.keys():
+        return BUILDINGS_MAP_NAME[name]
+    return None
 
 
 OBJECTS = [create_obj_from_index(i)(pos=(0, 0), level=1) for i in range(len(QUANTS))]
@@ -47,7 +70,7 @@ class GameBoard(object):
          """
 
     def create_buildings(quants, levels):
-        return generate_board.generate_random_base(quants, levels)
+        return generate_base.generate_random_base(quants, levels)
 
     DEFAULT_BASE = [Cannon((1, 0))]
 

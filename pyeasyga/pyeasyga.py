@@ -200,16 +200,29 @@ class GeneticAlgorithm(object):
     def run(self):
         """Run (solve) the Genetic Algorithm."""
         best_fitness = []
+        best_individuals = []
+
         self.create_first_generation()
         print("Population created!")
-        for _ in range(1, self.generations):
-            self.best_individual()[1].viz()
-            best_fitness.append(self.best_individual()[0])
-            print("Best fitness: " + str(self.best_individual()[0]))
+        for index in range(1, self.generations):
+            best_individual = self.best_individual()
+
+            # visualize best individual
+            best_individual[1].viz(index)
+
+            # save best individuals
+            best_fitness.append(best_individual[0])
+            best_individuals.append(best_individual[1])
+
+            # debug
+            print("Generation " + str(index) + " completed!")
+            print("Best fitness: " + str(best_individual[0]))
             print("Overall improvement: " + str(best_fitness))
-            print("Generation " + str(_) + " completed!")
-            self.create_next_generation(_)
-        print("All done!")
+
+            # next iteration
+            self.create_next_generation(index)
+
+        return best_fitness, best_individuals
 
     def best_individual(self):
         """Return the individual with the best fitness in the current

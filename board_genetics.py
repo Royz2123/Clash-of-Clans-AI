@@ -46,7 +46,7 @@ class BoardGenetics:
     def get_fitness(self):
         return self._fit
 
-    def viz(self):
+    def viz(self, index):
         self.game_board.update_viz()
 
     """

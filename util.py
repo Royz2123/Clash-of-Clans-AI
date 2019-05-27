@@ -29,3 +29,5 @@ def gen_location():
         x, y = y, x
 
     return x, y
+
+

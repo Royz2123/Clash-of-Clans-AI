@@ -31,7 +31,6 @@ model.compile(optimizer='Adam', loss='mse')
 model.fit(X_train, Y_train, batch_size=1, epochs=1)
 
 Y_pred = model.predict(X_test)
-print(Y_pred[])
 # Plotting the new model against ground truth
 print("Loss:\t", model.evaluate(X_test, Y_test, verbose=0))
 

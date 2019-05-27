@@ -9,7 +9,7 @@ import board_viz
 import util
 
 MAIN_BOARD = generate_base.generate_main_base()
-
+SAVE_FOLDER = "./optimize_viz/"
 
 class ArmyGenetics:
     """
@@ -42,34 +42,45 @@ class ArmyGenetics:
     """
 
     def calc_fitness(self):
-        outcome = self.run()
+        try:
+            outcome = self.run()
 
-        # calculate fitness
-        if self._mode == REGULAR:
-            self._fit = 2 * outcome["percent"] + 0.3 * outcome["stars"] + outcome["gold"] + outcome["elixir"]
-        elif self._mode == DESTORYER:
-            self._fit = 2 * outcome["percent"] + 0.3 * outcome["stars"]
-        elif self._mode == GOLD_DIGGER:
-            self._fit = outcome["gold"]
-        elif self._mode == ELIXIR_LOVER:
-            self._fit = outcome["elixir"]
-        elif self._mode == GOLD_DIGGER:
-            self._fit = outcome["gold"] + outcome["elixir"]
+            # calculate fitness
+            if self._mode == REGULAR:
+                self._fit = 2 * outcome["percent"] + 0.3 * outcome["stars"] + outcome["gold"] + outcome["elixir"]
+            elif self._mode == DESTORYER:
+                self._fit = 2 * outcome["percent"] + 0.3 * outcome["stars"]
+            elif self._mode == GOLD_DIGGER:
+                self._fit = outcome["gold"]
+            elif self._mode == ELIXIR_LOVER:
+                self._fit = outcome["elixir"]
+            elif self._mode == GOLD_DIGGER:
+                self._fit = outcome["gold"] + outcome["elixir"]
+
+        except Exception as e:
+            print(e)
+            self._fit = 0
+
+        print(self._fit)
 
     def get_fitness(self):
         return self._fit
 
-    def viz(self):
-        board_viz.viz_board(game_board=self._game_board, army=self._army, viz=True)
-
+    def viz(self, index, viz_mode=True):
+        if viz_mode:
+            path = SAVE_FOLDER + "%04d.png" % index
+            board_viz.viz_board(game_board=self._game_board, army=self._army, viz=False, path=path)
 
     """
     Our mutation function.
     """
 
     def mutation(self):
-        print("Mutating Army!")
-        self.mutation2()
+        # Large change or small change
+        if random.randint(0, 1):
+            self.mutation2()
+        else:
+            self.mutation1(MUTATION_RATE)
 
     def mutation2(self):
         self._army[random.randint(0, len(self._army) - 1)].set_pos(util.gen_location())

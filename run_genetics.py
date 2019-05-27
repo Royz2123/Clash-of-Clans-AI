@@ -45,7 +45,7 @@ def fitness(individual, data):
 def main(option="army"):
     genetic_alg = ps.GeneticAlgorithm(
         option,
-        population_size=50,
+        population_size=20,
         generations=200,
         mutation_probability=MUTATION_RATE,
         elitism=True,
@@ -55,9 +55,7 @@ def main(option="army"):
     genetic_alg.fitness_function = fitness
     genetic_alg.mutate_function = mutate
     genetic_alg.crossover_function = crossover
-    genetic_alg.run()
-
-    genetic_alg.best_individual()[1].game_board.update_viz()
+    best_fitness, best_individuals = genetic_alg.run()
 
 
 if __name__ == "__main__":

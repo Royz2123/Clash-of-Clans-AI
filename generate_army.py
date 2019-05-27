@@ -37,3 +37,15 @@ def generate_army_from_row(row, quants=DEFAULT_QUANTS, levels=DEFAULT_LEVELS):
             army.append(TROOPS[i](pos=(x, y), level=levels[i]))
             curr_index += 2
     return army
+
+
+# Generate a single super barb at every spot
+def generate_barb_matrix():
+    armies = []
+    for x in range(-MARGIN, BOARD_SIZE + MARGIN):
+        for y in range(-MARGIN, BOARD_SIZE + MARGIN):
+            if util.in_margins((x, y)):
+                super_troop = Barbarian((x, y))
+                super_troop.set_hp(1000)
+                armies.append([super_troop])
+    return armies
