@@ -179,8 +179,6 @@ class GeneticAlgorithm(object):
             if len(new_population) < self.population_size:
                 new_population.append(child_1)
 
-
-
         self.current_generation = new_population
 
     def create_first_generation(self):
@@ -201,12 +199,15 @@ class GeneticAlgorithm(object):
 
     def run(self):
         """Run (solve) the Genetic Algorithm."""
+        best_fitness = []
         self.create_first_generation()
         print("Population created!")
         for _ in range(1, self.generations):
-            self.best_individual()[1].game_board.update_viz()
-            print("best fitness: "+str(self.best_individual()[0]))
-            print("Generation "+str(_)+" completed!")
+            self.best_individual()[1].viz()
+            best_fitness.append(self.best_individual()[0])
+            print("Best fitness: " + str(self.best_individual()[0]))
+            print("Overall improvement: " + str(best_fitness))
+            print("Generation " + str(_) + " completed!")
             self.create_next_generation(_)
         print("All done!")
 

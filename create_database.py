@@ -37,7 +37,7 @@ def create_db(size=DB_SIZE):
         print("Current Row:\t", i)
         army, titles = generate_army.generate_random_army()
 
-        stats = sim.run(army, save_end_state=True, debug=True)
+        stats = sim.run(army, save_end_state=True, debug=False)
 
         # Open and write in files for every iteration. Append.
         with open(DATABASES + "X_" + str(size) + ".csv", "a+") as f_army:

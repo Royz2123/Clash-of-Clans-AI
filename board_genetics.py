@@ -30,16 +30,10 @@ class BoardGenetics:
         self._fit=SMALL_NUMBER
         self.calc_fitness()
 
-    """
-    create_individual method that will be used in GA
-    """
-
-    def create_individual(self):
-        return GameGenetics(
-            buildings=GameBoard.create_buildings(self.quants, self.levels))
 
     def run(self):
-        return self.sim.run(generate_random_army())
+        army, titles = generate_random_army()
+        return self.sim.run(army)
 
     """
     Our fitness function, currently linear.
@@ -51,6 +45,9 @@ class BoardGenetics:
 
     def get_fitness(self):
         return self._fit
+
+    def viz(self):
+        self.game_board.update_viz()
 
     """
     Our mutation function.
