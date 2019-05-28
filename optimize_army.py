@@ -23,6 +23,7 @@ def optimize_function(z, *params):
         return np.inf
     sim = simulator.Simulator(MAIN_BOARD)
     stats = sim.run(army, debug=False)
+    print(stats["percent"])
     return 1 - stats["percent"]
 
 

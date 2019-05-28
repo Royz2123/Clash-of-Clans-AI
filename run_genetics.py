@@ -1,19 +1,26 @@
 import pyeasyga.pyeasyga as ps
 import random
+import sys
 
 from constants import *
 import board_genetics
 import army_genetics
+import generate_army
+
 
 OPTIONS = {
     "army": army_genetics.ArmyGenetics,
-    "board": army_genetics.ArmyGenetics
+    "board": board_genetics.BoardGenetics
 }
+STATIC_ARMY = generate_army.generate_army_by_level(townhall_level=4)[0]
 
 
 # Helper functions
 def create_individual(option):
-    return OPTIONS[option]()
+    if option == "army":
+        return army_genetics.ArmyGenetics()
+    else:
+        return board_genetics.BoardGenetics(army=STATIC_ARMY)
 
 
 def crossover(parent_1, parent_2):
@@ -46,10 +53,10 @@ def main(option="army"):
     genetic_alg = ps.GeneticAlgorithm(
         option,
         population_size=20,
-        generations=200,
+        generations=500,
         mutation_probability=MUTATION_RATE,
         elitism=True,
-        maximise_fitness=True
+        maximise_fitness=OPTIONS[option].MAXIMIZE_FITNESS
     )
     genetic_alg.create_individual = create_individual
     genetic_alg.fitness_function = fitness
@@ -59,4 +66,11 @@ def main(option="army"):
 
 
 if __name__ == "__main__":
-    main()
+    option = "army"
+    if len(sys.argv) >= 2:
+        option = sys.argv[1]
+
+
+    print("Maximize Fitness: ", OPTIONS[option].MAXIMIZE_FITNESS)
+    print("Running Genetics for ", option)
+    main(option)

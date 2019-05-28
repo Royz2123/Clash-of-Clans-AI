@@ -9,20 +9,19 @@ import board_viz
 import util
 
 MAIN_BOARD = generate_base.generate_main_base()
-SAVE_FOLDER = "./optimize_viz/"
+SAVE_FOLDER = "./optimize_viz/genetics/army_genetics/"
 
 class ArmyGenetics:
+    MAXIMIZE_FITNESS = True
+
     """
     This class manages all of the functions necessery in order to run GA.
     """
     DEFAULT_MODE = DESTORYER
 
-    def __init__(self, army=None, buildings=MAIN_BOARD, mode=DEFAULT_MODE):
-        if army is None:
-            army, titles = generate_army.generate_random_army()
-
-        self._army = army
-        self._game_board = GameBoard(buildings)
+    def __init__(self, level=2, mode=DEFAULT_MODE):
+        self._army, titles = generate_army.generate_army_by_level(townhall_level=level)
+        self._game_board = GameBoard(generate_base.generate_base_by_level(level))
         self._sim = Simulator(self._game_board)
         self._fit = 0
         self._mode = mode
@@ -62,6 +61,9 @@ class ArmyGenetics:
             self._fit = 0
 
         print(self._fit)
+
+    def minimize_fitness(self):
+        return False
 
     def get_fitness(self):
         return self._fit

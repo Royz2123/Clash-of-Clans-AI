@@ -67,6 +67,13 @@ def generate_random_base_3():
     return generate_random_base(QUANTS, LEVELS)
 
 
+def generate_random_base_by_level(level=4, subindex=0):
+    if level == 4:
+        return generate_random_base(QUANTS, LEVELS)
+    else:
+        raise("Unsupported base level")
+
+
 def generate_base_by_level(level=4, subindex=0):
     if level == 2:
         return base_from_html.html_to_game_board(html_file="bases/base_2_th2.html")

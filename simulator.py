@@ -92,7 +92,7 @@ class Simulator(object):
                     + [str(stats["percent"])]
                 )
         except Exception as e:
-            print(e)
+            raise e
             stats = None
         return stats
 
@@ -126,8 +126,12 @@ class Simulator(object):
             # cache this plan
             self._plans[troop] = result
 
-        if len(result) <= troop.get_range() + 1:
-            self._plans[troop] = None
-            return result[-1], True
-        else:
-            return result[0], False
+        try:
+            if len(result) <= troop.get_range() + 1:
+                self._plans[troop] = None
+                return result[-1], True
+            else:
+                return result[0], False
+        except:
+            # problem? return the current position
+            return troop.get_pos(), False

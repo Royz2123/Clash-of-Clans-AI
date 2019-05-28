@@ -175,6 +175,7 @@ def Dijkstra(start, targets, graph):
                 heapq.heappush(openVertices, (candidateG, neighbour))
                 cameFrom[neighbour] = current
                 G[neighbour] = candidateG
+    print("shouldnt be here ever")
     return [], 0
 
 

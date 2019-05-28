@@ -109,7 +109,7 @@ class GameBoard(object):
         for size in range(1,GameBoard.BIGGEST_BUILDING_SIZE+1):
             for i in range(BOARD_SIZE-size):
                 for j in range(BOARD_SIZE-size):
-                    if (board[i:i+size][j:j+size]==BUILDINGS_MAP.get(Empty)).all():
+                    if (board[i:i+size,j:j+size]==BUILDINGS_MAP.get(Empty)).all():
                         self._buildings.append(Empty(size=size,pos=(i,j)))
 
     def get_defensive_buildings(self):
