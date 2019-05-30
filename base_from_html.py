@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 
 import board
+from constants import *
+
 
 def get_html(html_file = board.GameBoard.HTML_FILE):
     with open(html_file, "r") as f:
@@ -27,6 +29,7 @@ def html_to_game_board(html_file="bases/base1.html", viz=True):
             # get position
             pos = b["style"].split("px")[:2]
             pos = tuple([int(coord.split(" ")[-1]) // 20 for coord in pos])
+            pos = (pos[1], pos[0])
 
             # create object from said parameters
             if class_str in board.BUILDINGS_MAP_NAME.keys():
@@ -38,7 +41,13 @@ def html_to_game_board(html_file="bases/base1.html", viz=True):
     # set all positions to align to (0, 0)
     min_x = min(building_infos, key=lambda x: x[2][0])[2][0]
     min_y = min(building_infos, key=lambda x: x[2][1])[2][1]
+    max_x = max(building_infos, key=lambda x: x[2][1])[2][0]
+    max_y = max(building_infos, key=lambda x: x[2][1])[2][1]
+
+    board_length = max(max_x - min_x, max_y - min_y) + 1
+    to_center = max(0, (BOARD_SIZE - board_length) // 2)
     building_infos = [(c, l, (p[0] - min_x, p[1] - min_y)) for c, l, p in building_infos]
+    building_infos = [(c, l, (p[0] + to_center, p[1] + to_center)) for c, l, p in building_infos]
 
     # create objects
     building_objs = []
@@ -53,4 +62,4 @@ def html_to_game_board(html_file="bases/base1.html", viz=True):
 
 
 if __name__ == "__main__":
-    html_to_game_board(html_file="bases/base_2_th2.html")
+    html_to_game_board(html_file="bases/base_th4_5.html")

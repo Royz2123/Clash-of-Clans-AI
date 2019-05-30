@@ -3,6 +3,7 @@ import simulator
 import generate_base
 import generate_army
 import board_viz
+import base_from_html
 
 from constants import *
 
@@ -21,7 +22,7 @@ def plot_single_barb_mat_3d(armies):
     Y = []
     Z = []
 
-    gb = board.GameBoard(generate_base.generate_main_base())
+    gb = board.GameBoard(base_from_html.html_to_game_board("bases/base_th4_2.html"))
     sim = simulator.Simulator(gb)
 
     for army in armies:

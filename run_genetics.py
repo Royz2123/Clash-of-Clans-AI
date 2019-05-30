@@ -49,12 +49,12 @@ def fitness(individual, data):
 
 # Main Loop
 
-def main(option="army"):
+def main(option):
     genetic_alg = ps.GeneticAlgorithm(
         option,
-        population_size=20,
+        population_size=2,
         generations=500,
-        mutation_probability=MUTATION_RATE,
+        mutation_probability=0.7,
         elitism=True,
         maximise_fitness=OPTIONS[option].MAXIMIZE_FITNESS
     )
@@ -66,7 +66,7 @@ def main(option="army"):
 
 
 if __name__ == "__main__":
-    option = "army"
+    option = "board"
     if len(sys.argv) >= 2:
         option = sys.argv[1]
 

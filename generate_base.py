@@ -76,9 +76,9 @@ def generate_random_base_by_level(level=4, subindex=0):
 
 def generate_base_by_level(level=4, subindex=0):
     if level == 2:
-        return base_from_html.html_to_game_board(html_file="bases/base_2_th2.html")
+        return base_from_html.html_to_game_board(html_file="bases/base_th2_1.html")
     else:
-        return generate_main_base()
+        return base_from_html.html_to_game_board(html_file="bases/base_th4_1.html")
 
 
 """

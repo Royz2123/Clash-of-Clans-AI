@@ -7,9 +7,11 @@ import generate_army
 import generate_base
 import board_viz
 import util
+import numpy as np
 
 MAIN_BOARD = generate_base.generate_main_base()
 SAVE_FOLDER = "./optimize_viz/genetics/army_genetics/"
+
 
 class ArmyGenetics:
     MAXIMIZE_FITNESS = True
@@ -19,7 +21,7 @@ class ArmyGenetics:
     """
     DEFAULT_MODE = DESTORYER
 
-    def __init__(self, level=2, mode=DEFAULT_MODE):
+    def __init__(self, level=4, mode=DEFAULT_MODE):
         self._army, titles = generate_army.generate_army_by_level(townhall_level=level)
         self._game_board = GameBoard(generate_base.generate_base_by_level(level))
         self._sim = Simulator(self._game_board)
@@ -53,7 +55,7 @@ class ArmyGenetics:
                 self._fit = outcome["gold"]
             elif self._mode == ELIXIR_LOVER:
                 self._fit = outcome["elixir"]
-            elif self._mode == GOLD_DIGGER:
+            elif self._mode == RESOURCEFUL:
                 self._fit = outcome["gold"] + outcome["elixir"]
 
         except Exception as e:
@@ -78,11 +80,25 @@ class ArmyGenetics:
     """
 
     def mutation(self):
-        # Large change or small change
-        if random.randint(0, 1):
-            self.mutation2()
-        else:
-            self.mutation1(MUTATION_RATE)
+        self.mutation3()
+
+    def mutation3(self):
+        new_army = []
+        for troop in self._army:
+            if random.random() > 0.3:
+                new_army.append(troop)
+            else:
+                x, y = troop.get_pos()
+                while True:
+                    dx, dy = tuple(np.random.normal(loc=0.0, scale=3.0, size=2))
+
+                    if util.in_margins((x + int(dx), y + int(dy))):
+                        troop.set_pos((x + int(dx), y + int(dy)))
+                        break
+                new_army.append(troop)
+
+        self._army = new_army
+        self.calc_fitness()
 
     def mutation2(self):
         self._army[random.randint(0, len(self._army) - 1)].set_pos(util.gen_location())

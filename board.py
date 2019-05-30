@@ -28,7 +28,7 @@ BUILDINGS_MAP_NAME = {
     "cannon" : Cannon,
     "archer" : ArcherTower,
     "townhall" : TownHall,
-    "labratory": Labratory,
+    "research": Labratory,
     "mortar": Mortar,
     "builder": Builder,
     "elixerstorage": ElixirStorage,
