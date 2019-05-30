@@ -52,7 +52,7 @@ class OptimalArmy(Annealer):
     def move(self):
         """Moves a single troop to one of the possible directions"""
         """Maybe add change troop structure?"""
-        STEP_SIZE = 5
+        STEP_SIZE = 10
 
         troop = self.state[random.randint(0, len(self.state) - 1)]
         x, y = troop.get_pos()

@@ -52,7 +52,7 @@ def generate_barb_matrix():
 
 
 def generate_army_by_level(townhall_level):
-    QUANTS_LVL_2_EASY = [7, 7, 2]
+    QUANTS_LVL_2_EASY = [8, 8, 2]
     QUANTS_LVL_2_HARD = [10, 10, 3]
 
     if townhall_level == 2:

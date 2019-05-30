@@ -3,11 +3,9 @@ import numpy as np
 
 
 def in_margins(pos):
-    return any([
-        (coord > -MARGIN and coord < -INNER_MARGIN)
-        or (coord > BOARD_SIZE + INNER_MARGIN and coord < BOARD_SIZE + MARGIN)
-        for coord in pos
-    ])
+    out_of_board = [(coord > -MARGIN and coord < (BOARD_SIZE + MARGIN)) for coord in pos]
+    inner_board = [(coord > -INNER_MARGIN and coord < (BOARD_SIZE + INNER_MARGIN)) for coord in pos]
+    return all(out_of_board) and not all(inner_board)
 
 
 def list_from_pairs(pairs):
@@ -53,3 +51,12 @@ def lst_2D_2_1D(sqr):
         for j in range(len(sqr[i])):
             l.append(sqr[i][j])
     return l
+
+
+def check_in_margins():
+    for i in range(-23, 53):
+        s = ""
+        for j in range(-23, 53):
+            s += str(in_margins((i, j)))[0]
+        print(s)
+

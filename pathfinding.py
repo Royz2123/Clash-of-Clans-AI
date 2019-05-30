@@ -176,6 +176,9 @@ def Dijkstra(start, targets, graph):
                 cameFrom[neighbour] = current
                 G[neighbour] = candidateG
     print("shouldnt be here ever")
+    print("barriers", graph.barriers)
+    print("start", start)
+    print("targets", targets)
     return [], 0
 
 
