@@ -70,6 +70,13 @@ def generate_random_base_3():
 def generate_random_base_by_level(level=4, subindex=0):
     if level == 4:
         return generate_random_base(QUANTS, LEVELS)
+    elif level == 0:
+        print("gen base")
+        return generate_random_base(
+            [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50],
+            [0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+        )
+
     else:
         raise("Unsupported base level")
 
@@ -77,6 +84,8 @@ def generate_random_base_by_level(level=4, subindex=0):
 def generate_base_by_level(level=4, subindex=0):
     if level == 2:
         return base_from_html.html_to_game_board(html_file="bases/base_th2_1.html")
+    elif level == 0:
+        return base_from_html.html_to_game_board(html_file="bases/test_base_2.html")
     else:
         return base_from_html.html_to_game_board(html_file="bases/base_th4_1.html")
 

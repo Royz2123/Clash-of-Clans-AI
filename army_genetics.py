@@ -8,6 +8,7 @@ import generate_base
 import board_viz
 import util
 import numpy as np
+import traceback
 
 MAIN_BOARD = generate_base.generate_main_base()
 SAVE_FOLDER = "./optimize_viz/genetics/army_genetics/"
@@ -60,6 +61,7 @@ class ArmyGenetics:
 
         except Exception as e:
             print(e)
+            traceback.print_exc()
             self._fit = 0
 
         print(self._fit)
@@ -73,14 +75,22 @@ class ArmyGenetics:
     def viz(self, index, viz_mode=True):
         if viz_mode:
             path = SAVE_FOLDER + "%04d.png" % index
-            board_viz.viz_board(game_board=self._game_board, army=self._army, viz=False, path=path)
+            self._game_board.update_viz()
+            print([t.get_pos() for t in self._army])
+            board_viz.viz_board(game_board=self._game_board, title="Generation: %d" % index, army=self._army, viz=False, path=path)
+        if self._mode == DESTORYER and self._fit == 2.9:
+            self._sim = Simulator(self._game_board)
+            self._sim.run(self._army, viz=True)
 
     """
     Our mutation function.
     """
 
     def mutation(self):
-        self.mutation3()
+        if random.random() > 0.3:
+            self.mutation2()
+        else:
+            self.mutation1()
 
     def mutation3(self):
         new_army = []
@@ -104,10 +114,10 @@ class ArmyGenetics:
         self._army[random.randint(0, len(self._army) - 1)].set_pos(util.gen_location())
         self.calc_fitness()
 
-    def mutation1(self, mutation_rate):
+    def mutation1(self):
         new_army = []
         for troop in self._army:
-            if random.random() > mutation_rate:
+            if random.random() > 1:
                 new_army.append(troop)
             else:
                 x, y = troop.get_pos()

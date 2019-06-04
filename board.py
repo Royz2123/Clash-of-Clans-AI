@@ -73,7 +73,6 @@ class GameBoard(object):
     def __init__(self, buildings):
         self._buildings = buildings
         self._orig_buildings = [b for b in buildings]
-        self.add_emptys()
 
     def calc_hp(self):
         return sum([building.get_hp() for building in self.get_non_wall_buildings()])
@@ -99,18 +98,6 @@ class GameBoard(object):
 
     def has_townhall(self):
         return any([b.__class__ == TownHall for b in self._buildings])
-
-    def add_emptys(self):
-        board = np.zeros((BOARD_SIZE, BOARD_SIZE))
-        for building in self._buildings:
-            for x, y in building.get_loc_list():
-                board[x][y] = BUILDINGS_MAP[building.__class__]
-
-        for size in range(1,GameBoard.BIGGEST_BUILDING_SIZE+1):
-            for i in range(BOARD_SIZE-size):
-                for j in range(BOARD_SIZE-size):
-                    if (board[i:i+size,j:j+size]==BUILDINGS_MAP.get(Empty)).all():
-                        self._buildings.append(Empty(size=size,pos=(i,j)))
 
     def get_defensive_buildings(self):
         return [b for b in self._buildings if b.is_defensive()]

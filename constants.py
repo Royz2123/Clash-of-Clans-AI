@@ -1,4 +1,4 @@
-BOARD_SIZE = 30
+BOARD_SIZE = 15
 MARGIN = 20
 QUANTS = [0, 2, 2, 1, 1, 1, 2, 2, 2, 4, 4, 3, 1, 2, 75]
 LEVELS = [0, 4, 3, 4, 1, 1, 3, 6, 6, 6, 6, 5, 1, 3, 4]
@@ -16,4 +16,9 @@ DIRECTIONS = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1), (-1, 1), (1, -
     GOLD_DIGGER,
     ELIXIR_LOVER,
     RESOURCEFUL
-)=range(5)
+) = range(5)
+
+FONTDICT = {
+    'family': 'serif',
+    'weight': 'normal',
+}

@@ -11,7 +11,7 @@ TROOPS = [
     Giant
 ]
 
-DEFAULT_QUANTS = [13, 13, 5]
+DEFAULT_QUANTS = [13, 13, 7]
 DEFAULT_LEVELS = [4, 4, 3]
 
 
@@ -53,10 +53,12 @@ def generate_barb_matrix():
 
 def generate_army_by_level(townhall_level):
     QUANTS_LVL_2_EASY = [8, 8, 2]
-    QUANTS_LVL_2_HARD = [10, 10, 3]
+    QUANTS_LVL_2_HARD = [10, 10, 2]
 
     if townhall_level == 2:
         return generate_random_army(quants=QUANTS_LVL_2_HARD, levels=[2, 2, 1])
+    elif townhall_level == 0:
+        return generate_random_army(quants=[7, 7, 0], levels=[1, 1, 1])
     else:
         return generate_random_army()
 

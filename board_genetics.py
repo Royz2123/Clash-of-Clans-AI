@@ -5,6 +5,7 @@ from constants import *
 from simulator import *
 from generate_army import *
 import generate_base
+import game_object
 
 
 SAVE_FOLDER = "./optimize_viz/genetics/board_genetics/"
@@ -22,7 +23,6 @@ class BoardGenetics:
         self._army = army
         self._game_board = GameBoard(generate_base.generate_random_base_by_level(level=level))
         self._sim = Simulator(self._game_board)
-        self._fit = SMALL_NUMBER
         self._mode = mode
         self.calc_fitness()
 
@@ -64,7 +64,7 @@ class BoardGenetics:
     def viz(self, index, viz_mode=True):
         if viz_mode:
             path = SAVE_FOLDER + "%04d.png" % index
-            board_viz.viz_board(game_board=self._game_board, army=self._army, viz=False, path=path)
+            board_viz.viz_board(game_board=self._game_board, army=self._army, path=path)
             self._game_board.update_viz()
 
     """
@@ -74,22 +74,39 @@ class BoardGenetics:
     def mutation(self):
         # getting buildings and buildings that are not empty
         buildings = self._game_board.get_buildings()
-        non_emptys = [building for building in buildings if
-                      building.__class__ != Empty]
+        new_buildings = []
+
         # running through all the non empty buildings and try to replace them
         # with other buildings in the same size (including emptys)
-        for i in range(len(non_emptys)):
-            if random.random() < MUTATION_RATE:
-                build1 = buildings[i]
-                same_size = [build for build in buildings if
-                             build.get_size() == build1.get_size()]
-                chosen_index = randint(0, len(same_size)-1)
-                build2 = same_size[chosen_index]
-                buildings[i].set_pos(build2.get_pos())
-                # avoiding overlap
-                buildings[buildings.index(same_size[chosen_index])].set_pos(build1.get_pos())
-        self._game_board.set_buildings(buildings)
-        self._sim.set_game_board(self._game_board)
+        for i in range(len(buildings)):
+            building = buildings[i]
+            curr_state = new_buildings + buildings[i:]
+
+            if False: #random.random() > MUTATION_RATE:
+                new_buildings.append(building)
+            else:
+                # try swapping the building
+                moved = False
+                i = 0
+                while not moved and i < 20:
+                    i += 1
+                    x, y = util.gen_board_location(BOARD_SIZE - building.get_size())
+                    g = Building(pos=(x, y), size=building.get_size())
+
+                    # check for building at that location
+                    has_overlap = any([b.overlap(g) for b in curr_state])
+                    # print([b.overlap(g) for b in curr_state])
+
+                    # if building exists
+                    if not has_overlap:
+                        # swap between buildings if are the same size
+                        building.set_pos((x, y))
+                        moved = True
+
+                new_buildings.append(building)
+
+        # add new buildings
+        self._game_board = GameBoard(buildings=new_buildings)
+        self._sim = Simulator(self._game_board)
         self.calc_fitness()
-        self._game_board.add_emptys()
 

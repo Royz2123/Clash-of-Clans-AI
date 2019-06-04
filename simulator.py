@@ -68,12 +68,26 @@ class Simulator(object):
 
                 if viz:
                     base_state.update_viz()
-                    board_viz.viz_board(base_state, army_state, attack_path + "%04d.png" % self._iteration)
+                    board_viz.viz_board(base_state, army_state, path=attack_path + "%04d.png" % self._iteration)
 
             # return run stats
-            percent = (self._orig_hp - base_state.calc_hp()) / self._orig_hp
-            elixir_percent = (self._orig_elixir - base_state.calc_elixir()) / self._orig_elixir
-            gold_percent = (self._orig_gold - base_state.calc_gold()) / self._orig_gold
+            print(self._orig_hp)
+            if self._orig_hp:
+                percent = (self._orig_hp - base_state.calc_hp()) / self._orig_hp
+            else:
+                print("PROBLEMMM")
+                percent = 1.0
+
+            if self._orig_elixir:
+                elixir_percent = (self._orig_elixir - base_state.calc_elixir()) / self._orig_elixir
+            else:
+                elixir_percent = 1.0
+
+            if self._orig_gold:
+                gold_percent = (self._orig_gold - base_state.calc_gold()) / self._orig_gold
+            else:
+                gold_percent = 1.0
+
             th_destroyed = not base_state.has_townhall()
             stats = {
                 "base_won": len(base_state.get_non_wall_buildings()) != 0,
@@ -110,6 +124,8 @@ class Simulator(object):
             self._plans[troop] = result
         else:
             targets_loc = [t.get_pos() for t in troop.get_targets(base_state)]
+            if len(targets_loc) == 0:
+                return troop.get_pos(), False
             result, cost = pathfinding.Dijkstra(troop.get_pos(), targets_loc, board_graph)
 
             """

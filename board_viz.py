@@ -63,13 +63,27 @@ def plot_board(game_board):
         plt.gcf().gca().add_artist(circle)
 
 
-def viz_board(game_board=None, army=None, path=None, viz=False):
+def plot_arrows(army, arrows):
+    for troop, vec in zip(army, arrows):
+        x, y = troop.get_pos()
+        dx, dy = tuple(vec)
+        arrow = plt.arrow(y, x, dy, dx, head_width=0.5, head_length=1, fc='k', ec='k')
+        plt.gcf().gca().add_artist(arrow)
+
+
+def viz_board(game_board=None, army=None, title=None, path=None, viz=False, arrows=[(-2, -2)]*26):
     # Plot army and board
     if army is not None:
         plot_army(army)
 
     if game_board is not None:
         plot_board(game_board)
+
+    if arrows is not None:
+        plot_arrows(army, arrows)
+
+    if title is not None:
+        plt.title(title, fontsize=18, fontdict=FONTDICT)
 
     plt.xlim(-MARGIN, BOARD_SIZE + MARGIN)
     plt.ylim(-MARGIN, BOARD_SIZE + MARGIN)
@@ -103,8 +117,9 @@ def viz_path(result, graph, targets):
 
 
 def create_video(path):
+    print(path)
     w, h, d = cv2.imread(path + os.listdir(path)[0]).shape
-    out = cv2.VideoWriter(path + 'output.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 7, (h, w))
+    out = cv2.VideoWriter(path + 'output.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 5, (h, w))
 
     for file in os.listdir(path):
         filepath = path + file
@@ -113,3 +128,4 @@ def create_video(path):
     cv2.destroyAllWindows()
 
 
+# create_video("./optimize_viz/genetics/army_genetics/bag_r2/")

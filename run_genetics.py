@@ -8,19 +8,20 @@ import army_genetics
 import generate_army
 
 
+TOWNHALL_LEVEL = 0
 OPTIONS = {
     "army": army_genetics.ArmyGenetics,
     "board": board_genetics.BoardGenetics
 }
-STATIC_ARMY = generate_army.generate_army_by_level(townhall_level=4)[0]
+STATIC_ARMY = generate_army.generate_army_by_level(townhall_level=TOWNHALL_LEVEL)[0]
 
 
 # Helper functions
 def create_individual(option):
     if option == "army":
-        return army_genetics.ArmyGenetics()
+        return army_genetics.ArmyGenetics(level=TOWNHALL_LEVEL)
     else:
-        return board_genetics.BoardGenetics(army=STATIC_ARMY)
+        return board_genetics.BoardGenetics(level=TOWNHALL_LEVEL, army=STATIC_ARMY)
 
 
 def crossover(parent_1, parent_2):
@@ -52,7 +53,7 @@ def fitness(individual, data):
 def main(option):
     genetic_alg = ps.GeneticAlgorithm(
         option,
-        population_size=2,
+        population_size=5,
         generations=500,
         mutation_probability=0.7,
         elitism=True,
@@ -69,7 +70,6 @@ if __name__ == "__main__":
     option = "board"
     if len(sys.argv) >= 2:
         option = sys.argv[1]
-
 
     print("Maximize Fitness: ", OPTIONS[option].MAXIMIZE_FITNESS)
     print("Running Genetics for ", option)
