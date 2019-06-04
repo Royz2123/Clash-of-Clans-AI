@@ -266,7 +266,6 @@ class GoldCollector(Building):
 
 class ElixirCollector(Building):
     HPS = [0, 400, 450, 500, 550, 590, 610, 630, 660, 680, 710, 750, 0, 0]
-
     RESOURCES = [0,500,1000,1500,2500,10000,20000,30000,50000,75000,100000,150000,200000,250000]
 
     def __init__(self, pos, level=4):
