@@ -112,7 +112,7 @@ class GameBoard(object):
         for b1 in self.get_real_buildings()[:]:
             for b2 in self.get_real_buildings()[:]:
                 if b1 != b2 and b1.overlap(b2):
-                    print("OVERLAP! ", b1, b2)
+                    # print("OVERLAP! ", b1, b2)
                     if b1.__class__ == Wall and b2.__class__ == Wall:
                         self._buildings.remove(b1)
                     else:

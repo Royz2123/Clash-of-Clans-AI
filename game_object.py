@@ -5,18 +5,24 @@ class GameObject(object):
 
         # create loc list
         self._loc_list = []
-        for i in range(self._size):
-            for j in range(self._size):
-                self._loc_list.append((self._pos[0] + i, self._pos[1] + j))
+        self.update_loc_list()
 
     def __repr__(self):
         return "GameObject: %s" % str(self._pos)
+
+    def update_loc_list(self):
+        for i in range(self._size):
+            for j in range(self._size):
+                self._loc_list.append((self._pos[0] + i, self._pos[1] + j))
 
     def overlap_list(self,loc_list):
         return len(set(self._loc_list) & set(loc_list))
 
     def overlap(self, other):
         return len(set(self._loc_list) & set(other.get_loc_list()))
+
+    def get_loc_list(self):
+        return self._loc_list
 
     def distance_l2(self, other):
         return (self._pos[0] - other.get_pos()[0])**2 + (self._pos[1] - other.get_pos()[1])**2

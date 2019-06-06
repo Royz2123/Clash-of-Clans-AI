@@ -14,7 +14,7 @@ def generate_random_base(quants=QUANTS, levels=LEVELS):
             for j in range(quants[i]):
                 while True:
                     size = board.OBJECTS[i].get_size()
-                    x, y = tuple(random.sample(range(0, BOARD_SIZE - size - 1), 2))
+                    x, y = tuple(random.sample(range(1, BOARD_SIZE - size), 2))
                     curr_obj = board.create_obj_from_index(i)(pos=(x, y), level=levels[i])
                     if not any([curr_obj.overlap(other) for other in buildings]):
                         break
@@ -25,7 +25,7 @@ def generate_random_base(quants=QUANTS, levels=LEVELS):
     for j in range(quants[i]):
         while True:
             size = board.OBJECTS[i].get_size()
-            x, y = tuple(random.sample(range(0, BOARD_SIZE - size - 1), 2))
+            x, y = tuple(random.sample(range(0, BOARD_SIZE - size + 1), 2))
             curr_obj = board.create_obj_from_index(i)(pos=(x, y), level=levels[i])
             if not any([curr_obj.overlap(other) for other in buildings]):
                 break
@@ -71,9 +71,8 @@ def generate_random_base_by_level(level=4, subindex=0):
     if level == 4:
         return generate_random_base(QUANTS, LEVELS)
     elif level == 0:
-        print("gen base")
         return generate_random_base(
-            [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50],
+            [0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 35],
             [0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
         )
 

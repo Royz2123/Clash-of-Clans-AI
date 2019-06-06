@@ -19,8 +19,8 @@ class BoardGenetics:
     This class manages all of the functions necessery in order to run GA.
     """
 
-    def __init__(self, army, level=4, mode=DEFAULT_MODE):
-        self._army = army
+    def __init__(self, armies, level=4, mode=DEFAULT_MODE):
+        self._armies = armies
         self._game_board = GameBoard(generate_base.generate_random_base_by_level(level=level))
         self._sim = Simulator(self._game_board)
         self._mode = mode
@@ -29,33 +29,34 @@ class BoardGenetics:
     def minimize_fitness(self):
         return True
 
-    def run(self):
-        return self._sim.run(self._army)
+    def run(self, army):
+        return self._sim.run(army)
 
     """
     Our fitness function, currently linear.
     """
 
     def calc_fitness(self):
+        self._fit = 0
         try:
-            outcome = self.run()
+            for army in self._armies:
+                outcome = self.run(army)
 
-            # calculate fitness
-            if self._mode == REGULAR:
-                self._fit = 2 * outcome["percent"] + 0.3 * outcome["stars"] + outcome["gold"] + outcome["elixir"]
-            elif self._mode == DESTORYER:
-                self._fit = 2 * outcome["percent"] + 0.3 * outcome["stars"]
-            elif self._mode == GOLD_DIGGER:
-                self._fit = outcome["gold"]
-            elif self._mode == ELIXIR_LOVER:
-                self._fit = outcome["elixir"]
-            elif self._mode == GOLD_DIGGER:
-                self._fit = outcome["gold"] + outcome["elixir"]
+                # calculate fitness
+                if self._mode == REGULAR:
+                    self._fit += 2 * outcome["percent"] + 0.3 * outcome["stars"] + outcome["gold"] + outcome["elixir"]
+                elif self._mode == DESTORYER:
+                    self._fit += 2 * outcome["percent"] + 0.3 * outcome["stars"]
+                elif self._mode == GOLD_DIGGER:
+                    self._fit += outcome["gold"]
+                elif self._mode == ELIXIR_LOVER:
+                    self._fit += outcome["elixir"]
+                elif self._mode == GOLD_DIGGER:
+                    self._fit += outcome["gold"] + outcome["elixir"]
 
         except Exception as e:
             print(e)
             self._fit = 0
-
         print(self._fit)
 
     def get_fitness(self):
@@ -64,49 +65,44 @@ class BoardGenetics:
     def viz(self, index, viz_mode=True):
         if viz_mode:
             path = SAVE_FOLDER + "%04d.png" % index
-            board_viz.viz_board(game_board=self._game_board, army=self._army, path=path)
+            board_viz.viz_board(game_board=self._game_board, army=self._armies[0], path=path)
             self._game_board.update_viz()
 
     """
     Our mutation function.
     """
-
     def mutation(self):
+        for i in range(random.randint(1, 5)):
+            self.mutation_step()
+        self.calc_fitness()
+
+    def mutation_step(self):
         # getting buildings and buildings that are not empty
         buildings = self._game_board.get_buildings()
-        new_buildings = []
 
         # running through all the non empty buildings and try to replace them
         # with other buildings in the same size (including emptys)
-        for i in range(len(buildings)):
-            building = buildings[i]
-            curr_state = new_buildings + buildings[i:]
+        index = random.randint(2, len(buildings) - 1)
+        building = buildings[index]
 
-            if False: #random.random() > MUTATION_RATE:
-                new_buildings.append(building)
-            else:
-                # try swapping the building
-                moved = False
-                i = 0
-                while not moved and i < 20:
-                    i += 1
-                    x, y = util.gen_board_location(BOARD_SIZE - building.get_size())
-                    g = Building(pos=(x, y), size=building.get_size())
+        # try swapping the building
+        moved = False
+        i = 0
+        while i < 20:
+            i += 1
+            x, y = util.gen_board_location(BOARD_SIZE - building.get_size() + 1)
+            g = Building(pos=(x, y), size=building.get_size())
 
-                    # check for building at that location
-                    has_overlap = any([b.overlap(g) for b in curr_state])
-                    # print([b.overlap(g) for b in curr_state])
+            # check for building at that location
+            has_overlap = any([b.overlap(g) for b in buildings[:index] + buildings[index + 1:]])
 
-                    # if building exists
-                    if not has_overlap:
-                        # swap between buildings if are the same size
-                        building.set_pos((x, y))
-                        moved = True
-
-                new_buildings.append(building)
+            # if building exists
+            if not has_overlap:
+                # swap between buildings if are the same size
+                building.set_pos((x, y))
+                break
 
         # add new buildings
-        self._game_board = GameBoard(buildings=new_buildings)
-        self._sim = Simulator(self._game_board)
-        self.calc_fitness()
+        # self._game_board.update_viz()
+
 

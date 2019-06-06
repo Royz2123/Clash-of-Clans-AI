@@ -58,7 +58,7 @@ def create_db(size=DB_SIZE, townhall_level=4):
 
 if __name__ == "__main__":
     size=10000
-    th_level=2
+    th_level=4
     if len(sys.argv) >= 2:
         size = int(sys.argv[1])
     if len(sys.argv) >= 3:

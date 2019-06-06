@@ -59,6 +59,7 @@ class Building(game_object.GameObject):
 
     def set_pos(self, pos):
         self._pos = pos
+        self.update_loc_list()
 
     def get_range(self):
         return self._range
@@ -68,9 +69,6 @@ class Building(game_object.GameObject):
 
     def get_level(self):
         return self._level
-
-    def get_loc_list(self):
-        return self._loc_list
 
     def is_defensive(self):
         return self._dps > 0

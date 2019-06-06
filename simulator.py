@@ -71,7 +71,6 @@ class Simulator(object):
                     board_viz.viz_board(base_state, army_state, path=attack_path + "%04d.png" % self._iteration)
 
             # return run stats
-            print(self._orig_hp)
             if self._orig_hp:
                 percent = (self._orig_hp - base_state.calc_hp()) / self._orig_hp
             else:
