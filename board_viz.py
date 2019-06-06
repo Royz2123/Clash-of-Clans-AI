@@ -71,7 +71,7 @@ def plot_arrows(army, arrows):
         plt.gcf().gca().add_artist(arrow)
 
 
-def viz_board(game_board=None, army=None, title=None, path=None, viz=False, arrows=[(-2, -2)]*26):
+def viz_board(game_board=None, army=None, title=None, path=None, viz=False, arrows=[]):
     # Plot army and board
     if army is not None:
         plot_army(army)
