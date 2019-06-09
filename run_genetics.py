@@ -8,20 +8,20 @@ import army_genetics
 import generate_army
 
 
-TOWNHALL_LEVEL = 0
+townhall_level = 4
 OPTIONS = {
     "army": army_genetics.ArmyGenetics,
     "board": board_genetics.BoardGenetics
 }
-STATIC_ARMIES = [generate_army.generate_army_by_level(townhall_level=TOWNHALL_LEVEL)[0] for i in range(3)]
+static_armies = [generate_army.generate_army_by_level(townhall_level=townhall_level)[0] for i in range(3)]
 
 
 # Helper functions
 def create_individual(option):
     if option == "army":
-        return army_genetics.ArmyGenetics(level=TOWNHALL_LEVEL)
+        return army_genetics.ArmyGenetics(level=townhall_level)
     else:
-        return board_genetics.BoardGenetics(level=TOWNHALL_LEVEL, armies=STATIC_ARMIES)
+        return board_genetics.BoardGenetics(level=townhall_level, armies=static_armies)
 
 
 def crossover(parent_1, parent_2):
@@ -50,11 +50,11 @@ def fitness(individual, data):
 
 # Main Loop
 
-def main(option):
+def run_gen(option, pop_size=50, gens=1000):
     genetic_alg = ps.GeneticAlgorithm(
         option,
-        population_size=40,
-        generations=1000,
+        population_size=pop_size,
+        generations=gens,
         mutation_probability=0.7,
         elitism=True,
         maximise_fitness=OPTIONS[option].MAXIMIZE_FITNESS
@@ -67,10 +67,10 @@ def main(option):
 
 
 if __name__ == "__main__":
-    option = "board"
+    option = "army"
     if len(sys.argv) >= 2:
         option = sys.argv[1]
 
     print("Maximize Fitness: ", OPTIONS[option].MAXIMIZE_FITNESS)
     print("Running Genetics for ", option)
-    main(option)
+    run_gen(option)

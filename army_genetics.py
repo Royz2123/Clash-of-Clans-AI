@@ -22,9 +22,14 @@ class ArmyGenetics:
     """
     DEFAULT_MODE = DESTORYER
 
-    def __init__(self, level=4, mode=DEFAULT_MODE):
+    def __init__(self, level=4, mode=DEFAULT_MODE, game_board=None):
         self._army, titles = generate_army.generate_army_by_level(townhall_level=level)
-        self._game_board = GameBoard(generate_base.generate_base_by_level(level))
+
+        if game_board is None:
+            self._game_board = GameBoard(generate_base.generate_base_by_level(level))
+        else:
+            self._game_board = game_board
+
         self._sim = Simulator(self._game_board)
         self._fit = 0
         self._mode = mode
@@ -39,6 +44,9 @@ class ArmyGenetics:
     def run(self):
         return self._sim.run(self._army)
 
+    def get_army(self):
+        return self._army
+
     """
     Our fitness function, currently linear.
     """
@@ -51,7 +59,7 @@ class ArmyGenetics:
             if self._mode == REGULAR:
                 self._fit = 2 * outcome["percent"] + 0.3 * outcome["stars"] + outcome["gold"] + outcome["elixir"]
             elif self._mode == DESTORYER:
-                self._fit = 2 * outcome["percent"] + 0.3 * outcome["stars"]
+                self._fit = outcome["percent"]
             elif self._mode == GOLD_DIGGER:
                 self._fit = outcome["gold"]
             elif self._mode == ELIXIR_LOVER:
@@ -75,12 +83,12 @@ class ArmyGenetics:
     def viz(self, index, viz_mode=True):
         if viz_mode:
             path = SAVE_FOLDER + "%04d.png" % index
-            self._game_board.update_viz()
-            print([t.get_pos() for t in self._army])
+            # self._game_board.update_viz()
+            # print([t.get_pos() for t in self._army])
             board_viz.viz_board(game_board=self._game_board, title="Generation: %d" % index, army=self._army, viz=False, path=path)
         if self._mode == DESTORYER and self._fit == 2.9:
             self._sim = Simulator(self._game_board)
-            self._sim.run(self._army, viz=True)
+            self._sim.run(self._army)
 
     """
     Our mutation function.
@@ -117,7 +125,7 @@ class ArmyGenetics:
     def mutation1(self):
         new_army = []
         for troop in self._army:
-            if random.random() > 1:
+            if random.random() < 0.1:
                 new_army.append(troop)
             else:
                 x, y = troop.get_pos()

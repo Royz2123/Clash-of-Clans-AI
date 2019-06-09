@@ -62,9 +62,10 @@ def generate_army_by_level(townhall_level):
     QUANTS_LVL_0_LVLS = [1, 1, 1]
 
     if townhall_level == 2:
-        return generate_random_army(quants=QUANTS_LVL_2_HARD, levels=[2, 2, 1])
+        return generate_random_army(quants=[0, 10, 3], levels=[2, 2, 1])
     elif townhall_level == 0:
         return generate_random_army(quants=[0, 30, 0], levels=[1, 1, 1])
     else:
-        return generate_random_army()
+        return generate_random_army(quants=[13, 13, 5], levels=[4, 4, 3])
+
 

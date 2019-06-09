@@ -123,7 +123,7 @@ class GeneticAlgorithm(object):
         """
         initial_population = []
         for _ in range(self.population_size):
-            print("Created "+str(_+1)+" individuals!")
+            #print("Created "+str(_+1)+" individuals!")
             genes = self.create_individual(self.seed_data)
             individual = Chromosome(genes)
             initial_population.append(individual)
@@ -172,7 +172,7 @@ class GeneticAlgorithm(object):
                 self.mutate_function(child_1.genes)
                 self.mutate_function(child_2.genes)
             count+=2
-            print("Created "+str(count)+" individuals"+" generation: "+str(gen))
+            #print("Created "+str(count)+" individuals"+" generation: "+str(gen))
             new_population.append(child_1)
             if len(new_population) < self.population_size:
                 new_population.append(child_2)
@@ -197,13 +197,16 @@ class GeneticAlgorithm(object):
         self.calculate_population_fitness()
         self.rank_population()
 
-    def run(self):
+    def run(self, first=True, debug=True):
         """Run (solve) the Genetic Algorithm."""
         best_fitness = []
         best_individuals = []
 
-        self.create_first_generation()
-        print("Population created!")
+        if first:
+            self.create_first_generation()
+            if debug:
+                print("Population created!")
+
         for index in range(1, self.generations):
             best_individual = self.best_individual()
 
@@ -215,9 +218,10 @@ class GeneticAlgorithm(object):
             best_individuals.append(best_individual[1])
 
             # debug
-            print("Generation " + str(index) + " completed!")
-            print("Best fitness: " + str(best_individual[0]))
-            print("Overall improvement: " + str(best_fitness))
+            if debug:
+                print("Generation " + str(index) + " completed!")
+                print("Best fitness: " + str(best_individual[0]))
+                print("Overall improvement: " + str(best_fitness))
 
             # next iteration
             self.create_next_generation(index)

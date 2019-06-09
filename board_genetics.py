@@ -19,12 +19,23 @@ class BoardGenetics:
     This class manages all of the functions necessery in order to run GA.
     """
 
-    def __init__(self, armies, level=4, mode=DEFAULT_MODE):
+    def __init__(self, armies, level=4, mode=DEFAULT_MODE, game_board=None):
         self._armies = armies
-        self._game_board = GameBoard(generate_base.generate_random_base_by_level(level=level))
+
+        if game_board is None:
+            self._game_board = GameBoard(generate_base.generate_random_base_by_level(level=level))
+        else:
+            self._game_board = game_board
+
         self._sim = Simulator(self._game_board)
         self._mode = mode
         self.calc_fitness()
+
+    def get_gb(self):
+        return self._game_board
+
+    def set_armies(self, armies):
+        self._armies = armies
 
     def minimize_fitness(self):
         return True
@@ -57,6 +68,7 @@ class BoardGenetics:
         except Exception as e:
             print(e)
             self._fit = 0
+        self._fit /= len(self._armies)
         print(self._fit)
 
     def get_fitness(self):
@@ -71,18 +83,31 @@ class BoardGenetics:
     """
     Our mutation function.
     """
-    def mutation(self):
-        for i in range(random.randint(1, 5)):
-            self.mutation_step()
+    def mutation(self, only_second=False):
+        if not only_second:
+            for i in range(random.randint(1, 5)):
+                self.mutation_step_1()
+        for i in range(random.randint(1, 2)):
+            self.mutation_step_2()
         self.calc_fitness()
 
-    def mutation_step(self):
+    # Swaps 2 random buildings of size 3
+    def mutation_step_2(self):
+        buildings = self._game_board.get_buildings()
+        buildings = [b for b in buildings if b.get_size() == 3]
+        i1, i2 = random.randint(0, len(buildings) - 1), random.randint(0, len(buildings) - 1)
+
+        x, y = buildings[i1].get_pos()
+        buildings[i1].set_pos(buildings[i2].get_pos())
+        buildings[i2].set_pos((x, y))
+
+    def mutation_step_1(self):
         # getting buildings and buildings that are not empty
         buildings = self._game_board.get_buildings()
 
         # running through all the non empty buildings and try to replace them
         # with other buildings in the same size (including emptys)
-        index = random.randint(2, len(buildings) - 1)
+        index = random.randint(3, len(buildings) - 1)
         building = buildings[index]
 
         # try swapping the building

@@ -128,4 +128,4 @@ def create_video(path):
     cv2.destroyAllWindows()
 
 
-# create_video("./optimize_viz/genetics/army_genetics/bag_r2/")
+# create_video("./optimize_viz/genetics/army_genetics/")

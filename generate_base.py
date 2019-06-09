@@ -72,8 +72,8 @@ def generate_random_base_by_level(level=4, subindex=0):
         return generate_random_base(QUANTS, LEVELS)
     elif level == 0:
         return generate_random_base(
-            [0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 35],
-            [0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+            [0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50],
+            [0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
         )
 
     else:
