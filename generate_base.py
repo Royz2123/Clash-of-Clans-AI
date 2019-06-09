@@ -86,7 +86,7 @@ def generate_base_by_level(level=4, subindex=0):
     elif level == 0:
         return base_from_html.html_to_game_board(html_file="bases/test_base_2.html")
     else:
-        return base_from_html.html_to_game_board(html_file="bases/base_th4_1.html")
+        return base_from_html.html_to_game_board(html_file="bases/base_th4_2.html")
 
 
 """

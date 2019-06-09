@@ -66,6 +66,6 @@ def generate_army_by_level(townhall_level):
     elif townhall_level == 0:
         return generate_random_army(quants=[0, 30, 0], levels=[1, 1, 1])
     else:
-        return generate_random_army(quants=[13, 13, 5], levels=[4, 4, 3])
+        return generate_random_army(quants=[13, 13, 7], levels=[4, 4, 3])
 
 
