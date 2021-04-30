@@ -168,7 +168,7 @@ qtconsole==4.4.3
 QtPy==1.5.2
 requests==2.21.0
 rope==0.11.0
-rsa==3.4.2
+rsa==4.7
 ruamel-yaml==0.15.46
 s3transfer==0.2.0
 scikit-image==0.14.1
